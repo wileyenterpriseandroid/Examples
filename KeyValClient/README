@@ -1,0 +1,82 @@
+This repository contains the code for the content provider client
+in chapter 3 of "Enterprise Android" from Wrox Press.
+
+== Running the application
+This project was tested on an ARM emulator for a Galaxy Nexus device,
+running Android API Level 15, Ice Cream Sandwich, with a gig of memory.
+It should run, as well, on most any device, API Level 14 or greater.
+
+== Development
+This project was developed with Eclipse Juno on OS X 10.6.8 and ADK
+version 22.0.1.  It should be portable to other development environments.
+
+== Building with Eclipse
+In order to build this project, using eclipse, you will, first, have to
+copy the necessary project files into the project root directory
+The needed file are:
+tools/ide/eclipse/project => .project
+tools/ide/eclispe/classpath => .classpath
+tools/project.properties => project.properties
+
+There are serveral ways to do this:
+
+=== By hand
+Go for it!
+
+=== From Windows Explorer:
+Navigate to this directory (e.g., C:\Users\[user-name]\ea-examples\KeyValClient\tools)
+ and double click the file "setup.bat"
+
+It seems that Explorer will not change the name of a file so that
+it begins with a period (.), so dragging and renaming may not work.
+
+=== From a Windows CMD prompt:
+Navigate to the project tools directory and use the setup.bat file
+The user "blake" might, for instance, do this:
+C:\Users\blake\ea-examples\KeyValClient>cd tools
+C:\Users\blake\ea-examples\KeyValClient\tools>setup.bat
+
+=== From a *NIX shell prompt
+$ cd tools
+$ . setup.sh
+
+=== Using ant
+Move the file "build.xml" to the root directory and then:
+# on Windows: copy tools\build.xml .
+$ cp tools/build.xml .
+$ ant eclipse
+
+Once the project has been set up, from eclipse:
+
+Import... >> General >> Existing Projects into Workspace
+
+Note that "Import >> Android >> Existing Android Code into Workspace"
+is something else entirely.  It may work, but if you use it you are
+on your own.
+
+Occasionally, eclipse gets confused about the version of the Java compiler
+to use on a newly imported project.  If you see messages about the compiler
+compliance level, try using Properties >> Java Compiler to change the
+"Compiler compliance level" to anything other than its current value.
+"Apply" the change, and then change it again, to 1.6
+
+== Building with Ant
+
+These instructions assume a *NIX shell prompt.  If you are using
+ Windows CMD you will have to adapt them appropriately.
+
+To build this project with ant, you need two files;
+
+local.properties
+build.xml
+
+Both of these files can be generated using the "android" tool
+(assuming you have put the directory $ANDROID_HOME/sdk/tools onto your $PATH)
+
+$ android update project --path .
+
+There is also a build.xml file in ./tools which should be identical
+to the one produced by the command above, except that it contains
+the "eclipse" target, which sets this project up for eclipse.
+
+

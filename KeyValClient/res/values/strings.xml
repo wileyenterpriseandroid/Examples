@@ -1,0 +1,17 @@
+<resources>
+
+    <string name="app_name">KeyValClient</string>
+    <string name="title_activity_extras">ExtrasActivity</string>
+
+    <!-- layout text -->
+    <string name="label_key">Key:</string>
+    <string name="label_val">Val:</string>
+    <string name="hint_key">key</string>
+    <string name="hint_val">value</string>
+    <string name="button_add">Add</string>
+    <string name="desc_extra">Extra</string>
+
+    <!-- toasts -->
+    <string name="toast_update">update!</string>
+
+</resources>

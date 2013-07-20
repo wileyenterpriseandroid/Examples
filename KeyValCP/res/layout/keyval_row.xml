@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/listview_extra"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/desc_extra"
+        android:paddingLeft="4dp" >
+    </ImageView>
+
+    <TextView
+        android:id="@+id/listview_key"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/listview_extra"
+        android:paddingLeft="4dp"
+        android:textIsSelectable="false"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/listview_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:paddingRight="4dp"
+        android:textIsSelectable="false"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/listview_val"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/listview_key"
+        android:paddingLeft="16dp"
+        android:textIsSelectable="false" />
+
+</RelativeLayout>

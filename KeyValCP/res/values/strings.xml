@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">KeyVal</string>
+    <string name="title_activity_extras">ExtrasActivity</string>
+
+    <!-- permissions -->
+    <string name="content_group_desc">Access to the KeyVal content</string>
+    <string name="content_group_label">KeyVal</string>
+    <string name="content_read_desc">Read permission</string>
+    <string name="content_write_desc">Write permission</string>
+
+    <!-- layout text -->
+    <string name="label_key">Key:</string>
+    <string name="label_val">Val:</string>
+    <string name="hint_key">key</string>
+    <string name="hint_val">value</string>
+    <string name="button_add">Add</string>
+    <string name="desc_extra">Extra</string>
+
+    <!-- menu -->
+    <string name="item_start_client">Start Client</string>
+
+    <!-- toasts -->
+    <string name="toast_update">update!</string>
+
+    <!-- lorem ipsum -->
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vehicula molestie ipsum, a sagittis ipsum pretium vitae. Suspendisse auctor nibh ut enim sollicitudin mollis bibendum tellus mollis. Maecenas elementum est erat. Aenean dapibus euismod nibh, sed porttitor erat blandit a. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin pellentesque odio a nulla volutpat facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent purus sapien, posuere eget faucibus non, scelerisque nec mauris. Ut elementum tortor eu erat lacinia auctor. Praesent sodales faucibus lacus sit amet facilisis. Integer ut porttitor dolor. In dignissim luctus sapien vitae pharetra. Cras laoreet libero vitae lectus euismod lacinia.
+
+Nulla est orci, imperdiet vitae gravida ac, rhoncus vitae magna. Etiam porttitor ante vitae tellus facilisis fermentum. Nunc sed metus metus. Vestibulum vitae consequat purus. Suspendisse potenti. Vestibulum in quam sollicitudin nisl hendrerit accumsan eget eget libero. Quisque hendrerit, diam sit amet viverra varius, lectus mi suscipit felis, et imperdiet erat arcu a leo. Donec tristique, nunc quis faucibus mattis, sem mi ullamcorper ligula, nec porta mi ante at lacus.
+
+Pellentesque nec enim nibh, ac convallis quam. Nulla semper fringilla elit, id tincidunt purus feugiat id. Praesent egestas, ipsum in iaculis convallis, lacus nibh fringilla dolor, consectetur laoreet tellus lectus sed dui. Integer eros purus, pulvinar vitae tincidunt eget, pretium vitae enim. Vestibulum laoreet sem a leo blandit adipiscing. Vestibulum a velit eu mi tempor aliquam non non augue. Nullam id leo leo. In tortor diam, sagittis at convallis eget, imperdiet sit amet magna. Morbi venenatis libero molestie sem luctus tincidunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vitae neque sit amet ligula posuere venenatis id vitae neque.
+
+Donec at arcu eu est porttitor egestas. Quisque tempor tempus odio at consectetur. Etiam in imperdiet felis. Proin dignissim, nibh vitae adipiscing mollis, ligula odio consectetur nisl, sit amet lobortis eros quam in arcu. Duis tempor sem vel purus placerat eu faucibus massa faucibus. Nunc tempor fringilla euismod. Quisque nulla est, porta sit amet euismod quis, elementum in leo. Nam non ligula non dui venenatis ultricies vel eu leo. Suspendisse potenti. Proin vitae metus tellus, et consequat purus. Suspendisse vel elit in nisl varius viverra. In eu tincidunt dui. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent vitae mi arcu. Vestibulum sodales suscipit dui. Sed libero justo, vulputate egestas fermentum eget, rhoncus non dolor.
+
+Curabitur posuere, lacus ac dictum facilisis, ligula tortor ornare diam, eget dapibus nisi leo nec nisl. Cras purus est, fringilla in condimentum sed, varius sed massa. Nunc cursus leo in ligula laoreet blandit. Donec aliquam velit mollis lorem tempor dapibus. Aenean felis orci, mollis et hendrerit et, faucibus a sem. Phasellus ut libero tristique neque porttitor molestie ac sed tortor. Praesent vestibulum, odio non luctus lacinia, tellus massa posuere lectus, iaculis posuere ipsum ipsum at purus. Quisque dapibus hendrerit urna, ac varius dui scelerisque eget.</string>
+
+</resources>
