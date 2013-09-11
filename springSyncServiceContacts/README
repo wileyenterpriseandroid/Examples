@@ -198,7 +198,7 @@ Perform steps 1-5 of of the Prepare section running the example with ant.
 
 5. Create a new configuration and run:
 
-    a. Right click "springServiceContacts" in the package explorer
+    a. Right click "springSyncServiceContacts" in the package explorer
 
     b. Select "Run as -> Run Configurations"
 
