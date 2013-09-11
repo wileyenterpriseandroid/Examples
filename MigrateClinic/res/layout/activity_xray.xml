@@ -1,0 +1,82 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PatientsActivity" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/activity_xray_ssn_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="4dip"
+            android:text="@string/ssn_label"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/activity_xray_ssn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/activity_xray_ssn_label"
+            android:layout_marginLeft="4dip"
+            android:layout_toRightOf="@+id/activity_xray_ssn_label"
+            android:hint="@string/ssn_hint"
+            android:inputType="number"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/activity_xray_fname_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/activity_xray_ssn_label"
+            android:text="@string/fname_label"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/activity_xray_fname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/activity_xray_fname_label"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/activity_xray_fname_label"
+            android:hint="@string/fname_hint"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/activity_xray_lname_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/activity_xray_fname_label"
+            android:text="@string/lname_label"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/activity_xray_lname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/activity_xray_lname_label"
+            android:layout_marginLeft="8dip"
+            android:layout_toRightOf="@+id/activity_xray_lname_label"
+            android:hint="@string/lname_hint"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/activity_xray_xray"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:contentDescription="@string/xray_label" />
+
+</LinearLayout>

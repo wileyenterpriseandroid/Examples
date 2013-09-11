@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+            <fragment
+                android:id="@+id/content_frag"
+                android:name="com.enterpriseandroidbook.fragmentframework.ItemFragment" 
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                class="com.enterpriseandroidbook.fragmentframework.ItemFragment" />
+
+            <fragment
+                android:id="@+id/detail_frag"
+                android:name="com.enterpriseandroidbook.fragmentframework.ItemDetailFragment" 
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                class="com.enterpriseandroidbook.fragmentframework.ItemDetailFragment"/>
+
+</LinearLayout>

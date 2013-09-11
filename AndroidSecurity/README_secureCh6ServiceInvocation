@@ -1,0 +1,283 @@
+This is sample code for Chapter 12 of Wiley's Enterprise Android. This code
+provides an example for invoking a secure connection on a secure version of
+the chapter 6 service.
+
+Securing the Chapter6 Contacts Service:
+--------------------
+
+1. Securing the chapter 6 contacts web service:
+    a. Creating a “Certificate Signing Request”
+    b. Creating your own CA
+    c. Obtaining a site certificate for service authentication.
+    d. Configuring an HTTPS transport for Tomcat: with JSSE or APR
+    e. Authenticating the service using basic authentication.
+
+2. Invoking a secure connection on Android and sending client credentials  to
+   the service using basic authentication.
+
+1. Securing the chapter 6 contacts service
+----------
+
+    a. Creating a “Certificate Signing Request”
+       The following steps for creating a signing request are based on the
+       OpenSSL tool, which is pre-installed on Linux and Mac OS:
+
+        1. If you are using Windows, install cygwin software from the following
+           location:
+
+           http://www.cygwin.com/install.html
+
+           a. After launching the cygwin setup, select a host to install from,
+              and then check the following packages for installation:
+
+              * Net/OpenSSH
+              * Net/OpenSSL
+              * Perl/Larry Wall’s Wait Practical Extraction and Report Language
+
+            b. Wait until cygwin completes its install (a fast connection takes
+               5-10 minutes).
+
+        2. Start a shell on your particular platform. On Windows, double-click
+           Cygwin-Terminal. The example assumes that the SSL software is located
+           at:
+
+           OPENSSL=/usr/bin/openssl
+
+        3. Create a CA working directory and change directory to it. These
+           instructions refer to it as CA_DIR.
+
+           cd $(CA_DIR)
+
+           Run all commands from this directory.
+
+        4. Create a private key as follows:
+
+           $(OPENSSL)/openssl genrsa -out contacts_privkey.pem 1024
+
+        5. Create a certificate as follows:
+
+           $(OPENSSL)/openssl req -new -x509 -key contacts_privkey.pem -out contacts_cert.pem
+
+           Answer the questions.
+
+           Note that when you generate the certificate, the "common name"
+           should be the exact fully qualified hostname of the contacts service
+           site - will be accessed from the Android client.
+
+           Please keep in mind that the FQDN you choose for your site must be
+           an actual resolvable DNS hostname from whatever Android environment
+           you use – the Android emulator or an Android device. It’s a good
+           idea to load the site name as a web page in the Android browser
+           to make certain Android can really see it. Note also, that the DNS
+           name must not use a known root domain like amazonaws.com, but must
+           be your own domain.
+
+         6. Create a “request to sign” the certificate, by concatenating the
+            certificate from Step 5 with the private key from Step 4, as
+            follows:
+
+            cat contacts_cert.pem contacts_privkey.pem | $(OPENSSL)/openssl x509 -x509toreq -signkey contacts_privkey.pem -out contacts_certreq.csr
+
+            Now that you have a signing request, you can choose to do one of
+            two things with it:
+
+            * Pay a fee to have a commercial certificate authority, such as
+              VeriSign or StartSSL to sign it. This service varies widely in
+              price, but start at about $150 for a two year certificate.
+            * Create your own certificate authority, recognized by all the
+              applications that you write, and sign the certificate yourself.
+
+    b. Creating Your Own CA
+
+       As previously discussed, a service needs a certificate for secure
+       handshakes with clients. It turns out that with mobile applications it’s
+       entirely possible to become your own certificate authority and avoid any
+       hassle associated with buying certificates. You can create as many of
+       your own free and valid certificates as you need. If you want to become
+       your own certificate authority (optional), run the following utilities,
+       as per your platform:
+
+       1. Create a new CA:
+          Linux:
+          /usr/lib/ssl/misc/CA.pl –newca
+
+          Mac OS:
+          /System/Library/OpenSSL/misc/CA.pl -newca
+
+          Cygwin:
+          perl /usr/ssl/misc/CA.pl –newca
+
+          Press the enter to create.
+
+       2. As you run the CA.pl program, answer the questions as follows:
+          a. Press enter when the tool asks for the CA certificate filename.
+          b. Enter a PEM passphrase
+          c. Pick values for locality and organization:
+
+          d. The common name is the name of your certificate authority; choose
+             an appropriate name (e.g. "my root CA").
+
+          e. Choose passphrases as appropriate.
+          f. Enter your email.
+          g. Enter a challenge password; you'll use this password when you sign
+             certificates.
+
+             When the program completes, you should have the files you need
+             to act as your own CA. Your CA certificate should now reside in
+             demoCA/cacert.pem, and you can start signing certificates with it.
+
+             Note that the default expiration period of certificates that you
+             sign with your CA is 365 days, as specified in the CA.pl script.
+             If you need to make the period longer, you’ll need to modify
+             CA.pl to change the duration.
+           h. Enter the passphrase from 1,b,2,b.
+
+    c. Obtaining a site certificate
+
+       If you create your own CA, now sign the sign the certificate request
+       from Step 1,a,6 of “Create a certificate signing request” with the files
+       generated in demoCA. Run the following command from the output, demoCA
+       directory from “Creating your own CA”:
+
+        $(OPENSSL)\openssl ca -policy policy_anything -in contacts_certreq.csr -out contactservice.pem
+
+        1. Enter the passphrase that you entered from 1,b,2,b and sign and commit
+           the new certificate. Note that you can only sign the same cert
+           request one time.
+        2. Make sure that the size of contactservice.pem is not zero – this
+           file contains your new certificate.
+        3. You can now add contactservice.pem to web service back-ends to
+           communicate using HTTPS with Android applications. You will add
+           $(CA_DIR)/demoCA/cacert.pem to the root store of your Android
+           client, which is explained shortly.
+
+    If you did not create your own CA, from this point, use your
+    commercially obtained certificate.
+
+    d. Setting Up Tomcat for Secure Transport
+
+        Now that you have a certificate, you can configure your instance of
+        Tomcat to use it. You'll export the contacts service with an HTTPS
+        transport. You can configure Tomcat to use your certificates in two
+        ways:
+
+        * Using Java Secure Sockets (JSSE), generally used with production
+          deployments.
+        * Using a native technology called the Apache Portable Runtime, which
+          is generally used in development deployments.
+
+        1. Configuring Tomcat using JSSE
+
+             a. Create a service keystore and import the contact private key
+                and service certificate into it.
+
+                Tomcat will use the keystore to support HTTPs with the contacts
+                service. Server-side Java supports the keystore file format
+                “JKS” for storing certificates and a utility for editing it
+                called keytool.
+
+                Convert the private key:
+
+                openssl pkcs8 -topk8 -nocrypt -in  contacts_privkey.pem -inform PEM -out contacts_privkey.der -outform DER
+
+                Convert the signed certificate:
+
+                openssl x509 -in contactservice.pem -inform PEM -out contactservice.der -outform DER
+
+                Its common to use keytool to edit Java key stores, but in this
+                case, you will need to use a Java utility to import the
+                converted certificate files into the keystore. You can
+                download it from the following location:
+
+                http://www.agentbob.info/agentbob/80/version/default/part/AttachmentData/data/ImportKey.java
+
+                Or you can use the version included in:
+
+                $(CODE)/AndroidSecurity/ImportKey.java
+
+                Edit the file to set your keystore password – change the
+                variable, keypass.
+
+                Compile this utility using:
+                javac –d . $(CODE)/AndroidSecurity/ImportKey.java
+
+                Run ImportKey to create the keystore and import the private key
+                and contacts certificate, as follows:
+
+                java -Dkeystore=<cadir>/tomcat_keystore.jks ImportKey <cadir>/contacts_privkey.der <cadir>/contactservice.der
+
+                You should be able to list the contents of the keystore using:
+
+                keytool -list -v -keystore tomcat_keystore.jks
+
+              b. Edit the Tomcat server configuration file, called
+                 $(TOMCAT_HOME)/conf/server.xml, by uncommenting the 8443 ssl
+                 connector to make it active. Edit the fields to match the
+                 following code:
+
+              <Connector port="8443" maxThreads="200"
+                  scheme="https" secure="true" SSLEnabled="true"
+                  keystoreFile="<ca_dir>/tomcat_keystore.jks" keystorePass="<your_password>"
+                  clientAuth="false" sslProtocol="TLS"/>
+
+              c. Enter the password from Step 1,b,2,b of “Creating Your Own
+                 Root CA” or the password you used for your commercial
+                 certificate. Change ca_dir to be the directory where your CA
+                 authenticated private key resides.
+
+              d. Restart Tomcat.
+
+
+        2. Configuring Tomcat Using APR
+
+           APR is significantly easier to configure than JSSE. You can just
+           use the certificates you have created by directly configuring them
+           into the Tomcat configuration file, $(TOMCAT)/conf/server.xml, as
+           follows:
+
+           <-- Define a SSL Coyote HTTP/1.1 Connector on port 8443 -->
+           <Connector
+               port="8443" maxThreads="200"
+               scheme="https" secure="true" SSLEnabled="true"
+               SSLCertificateFile="<ca_dir>/contactservice.pem"
+               SSLCertificateKeyFile="/usr/local/ssl/contacts_privkey.pem"
+               clientAuth="optional" SSLProtocol="TLSv1"
+           />
+
+Opening a secure connection on Android
+----------
+
+1. Enter the hostname from step 1,a,5 into the following field:
+
+$(CODE)/AndroidSecurity/src/com/enterpriseandroid/androidSecurity/SecureConnectionActivity.javaSecureConnectionActivity.SECURE_HOST
+
+Set the secure port, likely 443 or 8443, as needed into:
+
+$(CODE)/AndroidSecurity/src/com/enterpriseandroid/androidSecurity/HttpsClientHelper.SECURE_PORT
+
+2. If you used your own CA, you'll need to download the following useful
+graphical tool, called portecle, for this task:
+
+http://sourceforge.net/projects/portecle/
+
+Unzip the download file and then run portecle using the following command
+line from the unzipped directory:
+
+java –jar <unzip_dir>/portecle.jar
+
+Import your CA certificate,
+
+ <cadir>/demoCA/cacert.pem
+
+into a new keystore, which should be of type BKS,
+and save it into the following directory with the name listed below:
+
+$(CODE)/AndroidSecurity/res/raw/your_ownca_keystore.bks
+
+Run the Android Security Application and choose the Secure connection
+option.
+
+
+
+
+

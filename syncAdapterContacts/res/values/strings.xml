@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Application -->
+    <string name="app_name">SyncContacts</string>
+    <string name="app_version">1.0RC7</string>
+
+    <!-- Menu -->
+    <string name="prefs_title">Setting</string>
+    <string name="sync1_title">Sync1</string>
+    <string name="sync2_title">Sync2</string>
+    <string name="new_account_title">New Account</string>
+    
+    <!-- Contacts -->
+    <string name="contacts_add">New</string>
+
+    <!-- Contact Details -->
+    <string name="activity_details">Contact Details</string>
+    <string name="detail_fname_label">First Name:</string>
+    <string name="detail_fname_hint">first name</string>
+    <string name="detail_lname_label">Last Name:</string>
+    <string name="detail_lname_hint">last name</string>
+    <string name="detail_phone_label">Phone:</string>
+    <string name="detail_phone_hint">phone number</string>
+    <string name="detail_email_label">eMail:</string>
+    <string name="detail_email_hint">email address</string>
+    <string name="detail_update">Submit</string>
+    <string name="detail_delete">Delete</string>
+    <string name="msg_name_required">A contact must have at least a first name</string>
+
+    <!-- Prefs -->
+    <string name="activity_prefs">Settings</string>
+    <string name="prefs_sync_summary">Url for the contacts service</string>
+    <string name="prefs_sync_title">Sync prefs</string>
+    <string name="prefs_url_title">Sync URL</string>
+    <string name="prefs_url_key">SyncContacts.URI</string>
+    
+    <!-- Provider -->
+    <string name="contacts_authority"
+        >com.enterpriseandroid.syncadaptercontacts.CONTACTS</string>
+
+    <!-- Sync -->
+    <string name="account_type"
+        >com.enterpriseandroid.syncadaptercontacts.ACCOUNT</string>
+    <string name="token_type">AUTH_UUID</string>
+    <string name="msg_no_account">Please configure an account</string>
+    
+</resources>

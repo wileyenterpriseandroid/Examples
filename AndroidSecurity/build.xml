@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="AndroidSecurity" basedir=".">
+
+    <property name="tools.eclipse" value="${basedir}/tools/ide/eclipse" />
+
+    <target name="eclipse"
+            description="setup eclipse project files">
+        <copy todir="${basedir}" >
+            <fileset dir="${tools.eclipse}"/>
+            <mapper from="*" to=".*" type="glob" />
+        </copy>
+    </target>
+</project>

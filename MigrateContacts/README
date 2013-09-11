@@ -1,0 +1,228 @@
+This repository contains the code for the Example in chapter 10
+of "Enterprise Android" from Wrox Press.
+
+This project was tested on an ARM emulator for a Galaxy Nexus device,
+running Android API Level 15, Ice Cream Sandwich, with a gig of memory.
+It should run, as well, on most any device, API Level 14 or greater.
+
+This MigrateContacts application depends on the Migrate project SDK
+and will work only on a device that has an installed Migrate client
+(migrate-client.apk). You must configure the Migrate client to
+communicate with a valid Migrate backend service instance that
+implements the WebData API.
+
+This README describes the following tasks:
+
+- Setting up a local Migrate service instance.
+- Running the Migrate Proxy (migrate-client.apk).
+- Configuring the MigrateContacts project.
+- Creating and posting contact schema.
+- Compiling and running the Migrate contacts APK.
+
+
+Get started:
+
+--------------------------------------------------
+1. Download the Migrate SDK from the following location:
+
+https://github.com/wileyenterpriseandroid/migrate/wiki
+
+Instructions refer to the unpacked directory as $MIGRATE_SDK.
+
+The SDK contains the following items:
+
+- migrate-beta.war
+- migrate-client-beta.apk
+- SDK build files (contract generation and POST)
+
+
+--------------------------------------------------
+2. Run the migrate service using Tomcat:
+
+Make sure that you have a mysql instance running with root
+credentials as:
+
+User: root
+Pass: mysql
+
+Copy the migrate.war binary to the Tomcat webapps directory:
+
+cp $MIGRATE_SDK/migrate.war $CATALINA_HOME/webapps
+$CATALINA_HOME/bin/shutdown.sh
+$CATALINA_HOME/bin/startup.sh
+
+Note: Use .bat on windows.
+
+Verify that the service is running by loading the following URL in a browser:
+http://localhost:8080/migrate
+
+The location display information about Migrate.
+
+--------------------------------------------------
+3. Configure MigrateContacts
+
+Follow the instructions in migrate.xml.
+There is a copy of a typical migrate.properties file in the tools
+directory (./tools)
+
+- Drag and drop or copy migrate.properties into place:
+
+cd $CODE/MigrateContacts
+cp tools/migrate.properties .
+
+- Drag and drop or copy migrate.xml into place:
+
+cd $CODE/MigrateContacts
+cp $MIGRATE_SDK/migrate.xml .
+
+- Drag and drop or copy migrate.properties into place and edit it for your project.
+
+cp tools/migrate.properties .
+
+Likely the defaults will work.
+
+--------------------------------------------------
+4. Compile your schema contract class:
+
+cd $CODE/MigrateContacts
+ant -f build-schema.xml
+
+This ant task outputs the following class that directs the generation
+of the Migrate contacts API:
+
+build/classes-schema/com/enterpriseandroid/migratecontacts/Contact.class
+
+--------------------------------------------------
+5. Generate the schema contract:
+
+- This command creates a data API for your Android application using
+the class from the previous step:
+
+ant -f migrate.xml
+
+On success, the code will create the following source file:
+
+$CODE/MigrateContacts/gen/com/enterpriseandroid/migratecontacts/ContactContract.java
+
+--------------------------------------------------
+6. Post the schema to the migrate service:
+
+ant -f migrate.xml postSchema
+
+This command makes the MigrateContacts schema available to the
+migrate service where migrate clients can use it to sync. Schema
+is generated form the class in step 4.
+
+- Test your posted schema, by using curl to retrieve it:
+
+curl -X GET http://localhost:8080/migrate/schema/com.enterpriseandroid.migratecontacts.Contact
+
+Should return:
+
+{"wd_id":"com.enterpriseandroid.migratecontacts.Contact","wd_version":1,"wd_classname":"com.migrate.webdata.model.PersistentSchema","wd_updateTime":1375631349189,"wd_namespace":"__schema","wd_deleted":false,"jsonSchema":{"properties":{"wd_version":{"required":true,"type":"integer"},"wd_deleted":{"required":true,"type":"integer"},"phoneNumber":{"type":"string"},"email":{"type":"string"},"lastname":{"type":"string"},"wd_id":{"required":true,"type":"string"},"wd_namespace":{"type":"string"},"firstname":{"type":"string"},"wd_classname":{"type":"string"},"wd_updateTime":{"required":true,"type":"long"}},"type":"object"},"indexList":null,"status":0}
+
+--------------------------------------------------
+7. Install and run the migrate-client.apk from the SDK:
+
+- Run the android emulator, as you've seen in earlier chapters,
+you can run the emulator using the command line with the AVD manager,
+or using Eclipse. Once its running, install the Migrate client APK:
+
+adb install $MIGRATE_SDK/migrate-client.apk
+
+The binary client in the SDK assumes that the service uses the
+android Emulator host (10.0.2.2), or localhost. Currently, you must
+build the client from source to configure a different backend
+service.
+
+On success, you will see a Toast that says, "Migrate is up!"
+
+--------------------------------------------------
+8. Activate Migrate sync using:
+
+Settings -> Accounts (webdata SyncAdapter) -> Check the sync checkbox.
+
+--------------------------------------------------
+9. Configure MigrateContacts for use with Eclipse, there are a
+few ways to do this:
+
+- Import MigrateContacts into Eclipse
+Import -> General...
+== Building with Eclipse
+In order to build this project, using eclipse, you will, first, have to
+copy the necessary project files into the project root directory
+The needed file are:
+tools/ide/eclipse/project => .project
+tools/ide/eclispe/classpath => .classpath
+tools/project.properties => project.properties
+
+=== From Windows Explorer:
+Navigate to this directory (e.g., C:\Users\[user-name]\ea-examples\MigrateContacts\tools)
+ and double click the file "setup.bat"
+
+It seems that Explorer will not change the name of a file so that
+it begins with a period (.), so dragging and renaming may not work.
+
+=== From a Windows CMD prompt:
+Navigate to the project tools directory and use the setup.bat file
+The user "blake" might, for instance, do this:
+C:\Users\blake\ea-examples\MigrateContacts>cd tools
+C:\Users\blake\ea-examples\MigrateContacts\tools>setup.bat
+
+=== From a *NIX shell prompt like Cygwin
+$ cd tools
+$ . setup.sh
+
+=== Using ant
+Move the file "build.xml" to the root directory and then:
+# on Windows: copy tools\build.xml .
+$ cp tools/build.xml .
+$ ant eclipse
+
+Once the project has been set up, from eclipse:
+
+Import... >> General >> Existing Projects into Workspace
+
+Note that "Import >> Android >> Existing Android Code into Workspace"
+is something else entirely.  It may work, but if you use it you are
+on your own.
+
+Occasionally, eclipse gets confused about the version of the Java compiler
+to use on a newly imported project.  If you see messages about the compiler
+compliance level, try using Properties >> Java Compiler to change the
+"Compiler compliance level" to anything other than its current value.
+"Apply" the change, and then change it again, to 1.6
+
+----------
+10. Run the MigrateContacts client:
+
+Select Run As Android application in Eclipse to start the Migrate Contacts project.
+
+---
+
+Congratulations, you have successfully installed a Migrate service
+and the Migrate Contacts demonstration client. You can now sync like you
+did in the other examples.
+
+
+
+== Building Migrate Contacts with Ant
+
+These instructions assume a *NIX shell prompt.  If you are using
+ Windows CMD you will have to adapt them appropriately.
+
+To build this project with ant, you need two files;
+
+local.properties
+build.xml
+
+Both of these files can be generated using the "android" tool
+(assuming you have put the directory $ANDROID_HOME/sdk/tools onto your $PATH)
+
+$ android update project --path .
+
+There is also a build.xml file in ./tools which should be identical
+to the one produced by the command above, except that it contains
+the "eclipse" target, which sets this project up for eclipse.
+
+

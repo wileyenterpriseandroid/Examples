@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/activity_detail_status"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:textIsSelectable="false" />
+
+    <TextView
+        android:id="@+id/activity_detail_fname_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/activity_detail_status"
+        android:text="@string/detail_fname_label"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/activity_detail_fname"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/activity_detail_fname_label"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@+id/activity_detail_fname_label"
+        android:hint="@string/detail_fname_hint"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/activity_detail_lname_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/activity_detail_fname_label"
+        android:text="@string/detail_lname_label"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/activity_detail_lname"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/activity_detail_lname_label"
+        android:layout_marginLeft="8dip"
+        android:layout_toRightOf="@+id/activity_detail_lname_label"
+        android:hint="@string/detail_lname_hint"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/activity_detail_phone_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/activity_detail_lname_label"
+        android:layout_marginTop="4dip"
+        android:text="@string/detail_phone_label"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/activity_detail_phone"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/activity_detail_phone_label"
+        android:layout_marginLeft="4dip"
+        android:layout_toRightOf="@+id/activity_detail_phone_label"
+        android:hint="@string/detail_phone_hint"
+        android:inputType="phone"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/activity_detail_email_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/activity_detail_phone_label"
+        android:layout_marginTop="6dip"
+        android:text="@string/detail_email_label"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/activity_detail_email"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/activity_detail_email_label"
+        android:layout_marginLeft="4dip"
+        android:layout_toRightOf="@id/activity_detail_email_label"
+        android:hint="@string/detail_email_hint"
+        android:inputType="textEmailAddress"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/activity_detail_update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/detail_update" />
+
+    <Button
+        android:id="@+id/activity_detail_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@id/activity_detail_update"
+        android:text="@string/detail_delete" />
+
+</RelativeLayout>

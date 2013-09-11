@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<ivysettings>
+    <settings defaultResolver="spring.compass.ibiblio.jersey" checkUpToDate="true" />
+    <resolvers>
+
+        <chain name="spring.compass.ibiblio.jersey">
+            <!--<url name="com.springsource.repository.bundles.release">-->
+                <!--<ivy pattern="http://repository.springsource.com/ivy/bundles/release/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />-->
+                <!--<artifact pattern="http://repository.springsource.com/ivy/bundles/release/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />-->
+            <!--</url>-->
+            <!--<url name="com.springsource.repository.bundles.external">-->
+                <!--<ivy pattern="http://repository.springsource.com/ivy/bundles/external/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />-->
+                <!--<artifact pattern="http://repository.springsource.com/ivy/bundles/external/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />-->
+            <!--</url>-->
+
+            <!--<ibiblio name="compass" m2compatible="true" root="http://repo.compass-project.org" />-->
+
+            <!-- All we need? -->
+            <ibiblio name="ibiblio" m2compatible="true" />
+
+        </chain>
+    </resolvers>
+</ivysettings>

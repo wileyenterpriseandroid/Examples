@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="your_array">
+        <item>@string/symmetric_encryption</item>
+        <item>@string/password_hash</item>
+        <item>@string/secure_connection</item>
+        <item>@string/account_manager</item>
+        <item>@string/install_certificate</item>
+    </string-array>
+</resources>

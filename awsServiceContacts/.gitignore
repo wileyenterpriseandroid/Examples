@@ -1,0 +1,9 @@
+/.gradle
+/build
+/build.ant
+/bin
+/ivy
+.checkstyle
+.classpath
+.project
+.settings

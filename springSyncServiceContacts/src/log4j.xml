@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+  <appender name="logfile" class="org.apache.log4j.RollingFileAppender"> 
+    <param name="file" value="springServiceContacts.log"/>
+    <param name="MaxFileSize" value="100KB"/>
+    <!-- Keep one backup file -->
+    <param name="MaxBackupIndex" value="1"/>
+    <layout class="org.apache.log4j.PatternLayout"> 
+      <param name="ConversionPattern" value="%p %t %c - %m%n"/> 
+    </layout> 
+  </appender> 
+  <!-- A1 is set to be a ConsoleAppender -->
+  <appender name="A1" class="org.apache.log4j.ConsoleAppender">
+    <!-- A1 uses PatternLayout -->
+    <layout class="org.apache.log4j.PatternLayout"> 
+      <param name="ConversionPattern" value="%-4r [%t] %-5p %c %x - %m%n"/> 
+    </layout> 
+  </appender> 
+  <logger name="com.nokia.dataos.api.NodeResource" additivity="false">
+    <level value="INFO"/> 
+    <appender-ref ref="A1" /> 
+  </logger>
+
+  <root> 
+    <!-- Set root logger level to DEBUG and its only appender to A1 -->
+    <level value ="INFO" /> 
+    <appender-ref ref="A1" /> 
+    <appender-ref ref="logfile" /> 
+  </root>
+</log4j:configuration>

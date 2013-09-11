@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AndroidSecurity</string>
+     <string name="encrypt">Encrypt</string>
+    <string name="save">Save</string>
+    <string name="menu_quit">Quit</string>
+    <string name="menu_login">Login</string>
+    <string name="menu_main">Main Menu</string>
+    <string name="login_activity_username_label">Username</string>
+    <string name="login_activity_password_label">Password</string>
+    <string name="login_activity_ok_button">Sign in</string>
+    <string name="login_successful_successful">You have successfully signed in</string>
+    <string name="ui_activity_title">Sign-in</string>
+    <string name="hello">hello</string>
+    <string name="succesful_request">Successful secure request.</string>
+    <string name="failed_request">Failed secure request.</string>
+    <string name="symmetric_encryption">Symmetric Encryption</string>
+    <string name="password_hash">Password Hash</string>
+    <string name="secure_connection">Secure Connection</string>
+    <string name="account_manager">Account Manager</string>
+    <string name="install_certificate">Install Certificate</string>
+    <string name="go_back_button">Go Back</string>
+    <string name="menu_save">save</string>
+</resources>

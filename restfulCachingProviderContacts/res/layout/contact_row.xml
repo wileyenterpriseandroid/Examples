@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <!--
+    !!!
+    Don't know what's going on here:
+    unless this is a TextView the background color
+    for status doesn't get drawn.
+    Something to do with the ListView background?
+    -->
+
+    <TextView
+        android:id="@+id/row_contacts_status"
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:textIsSelectable="false" />
+
+    <TextView
+        android:id="@+id/row_contacts_fname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/row_contacts_status"
+        android:paddingLeft="4dp"
+        android:textIsSelectable="false"
+        android:textSize="10pt"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/row_contacts_lname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:paddingRight="3dp"
+        android:textIsSelectable="false"
+        android:textSize="10pt" />
+
+    <TextView
+        android:id="@+id/row_contacts_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/row_contacts_fname"
+        android:layout_toRightOf="@id/row_contacts_status"
+        android:paddingLeft="4dp"
+        android:paddingTop="6dp"
+        android:textIsSelectable="false" />
+
+    <TextView
+        android:id="@+id/row_contacts_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/row_contacts_lname"
+        android:paddingRight="3dp"
+        android:paddingTop="6dp"
+        android:textIsSelectable="false" />
+
+</RelativeLayout>

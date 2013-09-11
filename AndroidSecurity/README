@@ -1,0 +1,29 @@
+This is sample code for Chapter 12 of Wiley's Enterprise Android. This code
+provides several discrete examples that demonstrate security techniques
+for the Android platform and its use with backend services.
+
+The samples include:
+
+Protecting data: uses AES256 to encrypt data in a file.
+
+Protecting passwords: Uses a secure hashing system to protect passwords.
+
+Protecting communication: involves setting up an HTTPS exported version
+of the chapter 6 service, and a then executing a secure invocation to it from
+an Android client that uses basic authentication.
+
+Using Accounts: An example that provides a basic demonstrations of
+how to use the Android Account Manager.
+
+----------
+
+The code includes an application UI called, AndroidSecurity, that allows you
+to execute each of these examples. Run, "ant eclipse" and then you can
+open the project folder in Eclipse.
+
+Note: The example "Protecting Communication" includes an additional set of
+tasks that you must follow before you can use the AndroidSecurity UI
+to run it. You can find these instructions in the chapter text, and in the
+project file:
+
+README_secureCh6ServiceInvocation

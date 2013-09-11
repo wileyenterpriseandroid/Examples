@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+  
+
+    <bean id="httpClientParams" class="org.apache.commons.httpclient.params.HttpClientParams">
+        <property name="authenticationPreemptive" value="true"/>
+        <property name="connectionManagerClass"
+                  value="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager"/>
+     </bean>
+
+    <bean id="httpClient" class="org.apache.commons.httpclient.HttpClient">
+        <constructor-arg ref="httpClientParams"/>
+    </bean>
+    <bean id="httpClientFactory" class="org.springframework.http.client.CommonsClientHttpRequestFactory">
+        <constructor-arg ref="httpClient"/>
+    </bean>
+  
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+        <constructor-arg ref="httpClientFactory"/>
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+                <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+                <bean class="org.springframework.http.converter.FormHttpMessageConverter"/>
+                <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+ 
+            </list>
+        </property>    
+    </bean>
+    <bean id="testClient" class="unit.test.rest.TestClient">
+    	<constructor-arg ref="restTemplate"/>    
+    </bean>
+   
+   <bean id="dynamodbv2DaoTestClient" class="unit.test.dao.DaoTestClient">
+    	<constructor-arg ref="contactDaov2"/>    
+   </bean>
+
+   <bean id="dynamodbv1DaoTestClient" class="unit.test.dao.DaoTestClient">
+    	<constructor-arg ref="contactDaov1"/>    
+   </bean>
+   
+</beans>

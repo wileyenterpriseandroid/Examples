@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="springServiceContacts" default="setupDB" basedir=".">
+
+    <property file="src/jdbc.properties"/>
+
+    <property name="build.home" value="${basedir}/build"/>
+    <property name="src.dir" value="${basedir}/src"/>
+    <property name="lib.dir" value="${build.home}/WEB-INF/lib"/>
+
+    <path id="classpath">
+        <fileset dir="${lib.dir}">
+            <include name="*.jar"/>
+        </fileset>
+        <pathelement location="${build.home}/WEB-INF/classes"/>
+    </path>
+
+    <taskdef name="hibernatetool"
+             classname="org.hibernate.tool.ant.HibernateToolTask"
+             classpathref="classpath"/>
+
+    <target name="genHBSchema">
+        <echo>  ${jdbc.url}${db.name}?characterEncoding=UTF-8 </echo>
+        <hibernatetool destdir="${basedir}">
+            <annotationconfiguration configurationfile="${src.dir}/hibernateAnnotation.cfg.xml"/>
+            <!-- list exporters here -->
+            <hbm2ddl export="false" format="true" outputfilename="contact.hb.sql"/>
+        </hibernatetool>
+    </target>
+
+    <target name="dropTable" >
+        <echo>  jdbc.url = ${jdbc.url}${db.name}?characterEncoding=UTF-8" </echo>
+        <sql driver="${jdbc.driverClassName}"
+             url="${jdbc.url}${db.name}?characterEncoding=UTF-8"
+             userid="${jdbc.username}"
+             password="${jdbc.password}"
+             onerror="continue">
+            <classpath>
+                <fileset dir="${lib.dir}"><include name="*.jar"/></fileset>
+            </classpath>
+            DROP TABLE contact_hbm;
+        </sql>
+    </target>
+
+    <target name="setupDB" depends="deployHBSchema,deployJdbcSchema"/>
+
+    <target name="deployHBSchema" depends="cleanDB, genHBSchema" >
+        <sql driver="${jdbc.driverClassName}"
+             url="${jdbc.url}${db.name}?characterEncoding=UTF-8"
+             userid="${jdbc.username}"
+             src="contact.hb.sql" password="${jdbc.password}"
+             onerror="continue">
+            <classpath>
+                <fileset dir="${lib.dir}"><include name="*.jar"/></fileset>
+            </classpath>
+        </sql>
+    </target>
+
+    <target name="deployJdbcSchema" depends="cleanDB" >
+        <echo>  jdbc.url = ${jdbc.url}${db.name}?characterEncoding=UTF-8" </echo>
+        <sql driver="${jdbc.driverClassName}"
+             url="${jdbc.url}${db.name}?characterEncoding=UTF-8"
+             userid="${jdbc.username}"
+             src="contact.jdbc.sql" password="${jdbc.password}"
+             onerror="continue">
+            <classpath>
+                <fileset dir="${lib.dir}"><include name="*.jar"/></fileset>
+            </classpath>
+        </sql>
+    </target>
+
+    <target name="cleanDB" >
+        <echo>  jdbc.orderUrl = ${jdbc.url} </echo>
+        <sql driver="${jdbc.driverClassName}"
+             url="${jdbc.url}"
+             userid="${jdbc.username}"
+             password="${jdbc.password}"
+             onerror="continue">
+            <classpath>
+                <fileset dir="${lib.dir}"><include name="*.jar"/></fileset>
+            </classpath>
+            DROP DATABASE IF EXISTS ${db.name} ;
+            CREATE DATABASE ${db.name} DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+
+        </sql>
+    </target>
+</project>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MigrateClinic</string>
+
+    <!-- Patients -->
+    <string name="add">Add</string>
+    <string name="update">Submit</string>
+    <string name="delete">Delete</string>
+    
+    <!-- Patient Details -->
+    <string name="ssn_label">SSN:</string>
+    <string name="ssn_hint">SSN</string>
+    <string name="activity_details">Patient Record</string>
+    <string name="fname_label">First Name:</string>
+    <string name="fname_hint">first name</string>
+    <string name="lname_label">Last Name:</string>
+    <string name="lname_hint">last name</string>
+    <string name="insurer_label">Insurer:</string>
+    <string name="insurer_hint">insurer</string>
+    <string name="xray_label">Xrays:</string>
+    <string name="ssn_required">A patient must have at least an SSN</string>
+    
+    <!-- XRay -->
+    <string name="activity_xray">XRay</string>
+    <string name="retry_xray">The XRay database is not ready yet.  It is possible that it will be ready in a few moments.</string>
+    
+    <!-- Prefs -->
+    <string name="activity_prefs">Settings</string>
+    <string name="prefs_title">Settings</string>
+    <string name="prefs_heading">User</string>
+    <string name="prefs_user_key">MigratePatients.USER</string>
+    <string name="prefs_user_title">Patients user ID</string>
+    
+</resources>

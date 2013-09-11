@@ -1,0 +1,157 @@
+This is sample code for Chapter 7 of Wiley's Enterprise Android. The sample
+creates a RESTful Contacts service with backend persistence support from
+Google App Engine. This service provides an operational backend
+for the examples in chapter 5.  The example assumes that:
+
+* You are familiar with and have run the code in
+  restfulCachingProviderContacts, syncAdapterContacts and in
+  springServiceContacts.
+
+You can use any of the three major operating systems for PCs to develop the
+web backend: Linux, Mac OS, or Windows. The OS is not particularly relevant
+for backend services. The code is likely to work on a variety of software
+versions, but was specifically tested on:
+
+Java (1.7.0_25), Appengine-java-sdk(1.8.0), EclipseEE (Kepler)
+
+=== Prepare:
+
+1. Create a Google App Engine Service
+
+   The App Engine example also relies on Spring and Tomcat, and of course
+   requires a Google account, so create one if necessary. Log in to your
+   Google account and then go to:
+
+   https://appengine.google.com/
+
+   Click the Create Application button, and then follow the subsequent
+   instructions to create a Google App Engine application. Start by creating
+   a Google "application identifier", which is a unique string you pick between
+   6 and 30 lowercase characters; be forewarned, many strings are already
+   taken, we used wileyenterpriseandroidea. Pick a title, select an access
+   level, and sign the terms of use. Your application should now be
+   registered.
+
+2. Install the App Engine SDK
+
+   To work with App Engine, you'll need to download the SDK for Java from
+   Google's developer site at the following location:
+
+   https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Java
+
+   Google has significant App Engine documentation online:
+
+   https://developers.google.com/appengine/
+
+3. Install the Google Plugin for Eclipse
+
+   Follow the instructions below to install the Google plugin for eclipse:
+
+   https://developers.google.com/appengine/docs/java/tools/eclipse
+
+   Edit the build properties file:
+
+   $(CODE)/googleAppEngineContacts/build.properties
+
+   to provide the path where you installed the App Engine SDK.
+
+4. Configure an Application Identifier
+
+   Add the application identifier from step 1 into the file
+   $(CODE)/googleAppEngineContacts/war/WEB-INF/appengine-web.xml
+
+   as follows, on line 3:
+
+   1 <?xml version="1.0" encoding="utf-8"?>
+   2 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
+   3   <application>Add_your_application_id_here</application>
+   4 <version>1</version
+
+5. Create an application specific password:
+
+   You wont be able to deploy updates to your app engine service using
+   your normal account password, instead you must create an application
+   specific password from the following location:
+
+   https://accounts.google.com/IssuedAuthSubTokens?hide_authsub=1#accesscodes
+
+   When invoking update requests, from ant, or in eclipse, use the
+   following credentials:
+
+   Email address: your account email address
+   Password: An application specific password
+
+=== Deploy the code
+
+As with other projects, you can run the code from the command line or in
+Eclipse.
+
+== Deploy the code with ant:
+
+Execute steps 1-4 above.
+
+1. To run the code locally on port 8080:
+
+   ant runserver
+
+   The local endpoint is:
+   http://localhost:8080/Contacts
+
+   Client commands for local use:
+
+   Create contacts:
+   curl -H "Content-Type: application/json" -X POST -d '{"firstName":"John", "lastName":"Smith", "phone":2345678901, "email":"jsmith@nosuchhost.com" }' http://localhost:8080/Contacts
+
+   Get contacts:
+   curl -X GET http://localhost:8080/Contacts
+
+2. To deploy to the google cloud
+   Run the command:
+
+   ant deploy-app
+
+   Enter credentials as specified as above.
+
+=== Run with Eclipse
+
+Execute steps 1-4 of Prepare.
+
+1. Setup the Eclipse build files:
+
+   ant eclipse
+
+   Note: In this project, this command also resolves ivy dependencies.
+
+2. As shown in springServiceContacts, import the project directory in Eclipse:
+
+   $(CODE)/googleAppEngineContacts
+
+3. Add the AppEngine SDK to the classpath.
+
+   a. Right click the googleAppEngineContacts project
+   b. Go to Project menu and select properties
+   c. Click the "Java Build Path" on the left.
+   d. Click the "Add Library..." button
+   e. Select "Google App Engine", and then click the "Next" button
+   f. Select the App Engine SDK, and then click "Finish".
+
+4. To run the sample code locally, right click the googleAppEngineContact and
+   select the "Run As->Web Application" menu.
+
+5. To deploy the app to Google:
+   a. Right click googleAppEngineContacts
+   b. Select "Google -> Deploy to App Engine"
+
+   Note: You can view log messages by selecting your_app_id from the list of
+   apps listed from: http://appengine.google.com/
+
+   Google provides a large arrays of service statistics here as well.
+
+Client commands for cloud use (from Eclipse or command line):
+
+Create contacts:
+curl -H "Content-Type: application/json" -X POST -d '{"firstName":"John", "lastName":"Smith", "phone":2345678901, "email":"jsmith@nosuchhost.com" }' http://<your_ae_id>.appspot.com>/Contacts
+
+Get contacts:
+curl -X GET http://<your_ae_id>.appspot.com/Contacts
+

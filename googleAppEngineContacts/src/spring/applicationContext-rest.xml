@@ -1,0 +1,45 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+	        http://www.springframework.org/schema/tx 
+     		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	<!-- Enable annotation scanning. -->
+	<context:component-scan base-package="com.enterpriseandroid.googleappengineContacts" />
+	
+	<bean id="contactService" class="com.enterpriseandroid.googleappengineContacts.service.impl.ContactServiceImpl" />
+	
+	<bean id="marshallingHttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+	</bean>
+
+
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<util:list id="beanList">
+				<ref bean="marshallingHttpMessageConverter" />
+			</util:list>
+		</property>
+	</bean>
+
+  <bean id="jspviewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+  	  <property name="order" value="2"/>
+  	  <property name="cache" value="true"/>
+      <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+      <property name="prefix" value="/WEB-INF/jsp/"/>
+      <property name="suffix" value=".jsp"/>
+  </bean>
+ 
+    <mvc:default-servlet-handler/>
+	<!-- Should be defined last! -->
+	<mvc:annotation-driven />  
+    <mvc:resources mapping="/resource/**" location="/resource/"/>  
+ 
+ 
+</beans>

@@ -1,0 +1,15 @@
+.DS_*
+.checkstyle
+.classpath
+.project
+.settings
+/bin/*
+/gen/*
+build.xml
+lint.xml
+local.properties
+migrate.properties
+project.properties
+migrate.xml
+/build
+

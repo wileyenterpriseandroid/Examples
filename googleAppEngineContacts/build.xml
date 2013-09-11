@@ -1,0 +1,148 @@
+<project  xmlns:ivy="antlib:org.apache.ivy.ant" name="googleAppEnineContacts" default="runserver" basedir=".">
+
+    <property file="build.properties"/>
+    <property name="dist" value="${basedir}/dist" />
+    <property name="dist.war" value="${dist}/war" />
+    <property name="tools.eclipse" value="${basedir}/tools/ide/eclipse" />
+    <property name="ivy.install.version" value="2.3.0-rc1"/>
+    <property name="ivy.jar.dir" value="${basedir}/ivy"/>
+    <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar"/>
+    <property name="ivy.lib.dir" value="${dist.war}/WEB-INF/lib" />
+    <fail message="Property &quot;sdk.dir&quot; needs to be set, please edit the build.properties file to set App Engine SDK directory "
+          unless="sdk.dir"/>
+
+    <import file="${sdk.dir}/config/user/ant-macros.xml" />
+
+
+    <target name="download-ivy" unless="skip.download">
+        <mkdir dir="${ivy.jar.dir}"/>
+        <!--
+        download Ivy from web site so that it can be used even without any special installation
+        -->
+        <echo message="installing ivy..."/>
+        <get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar" dest="${ivy.jar.file}" usetimestamp="true"/>
+    </target>
+
+    <target name="install-ivy" depends="download-ivy" description="--> install ivy">
+        <!--
+         try to load ivy here from local ivy dir, in case the user has not already dropped it into
+         ant's lib dir (note that the latter copy will always take precedence). We will not fail as
+         long as local lib dir exists (it may be empty) and ivy is in at least one of ant's lib dir
+         or the local lib dir.
+        -->
+        <path id="ivy.lib.path">
+            <fileset dir="${ivy.jar.dir}" includes="*.jar"/>
+        </path>
+        <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
+    </target>
+
+
+    <target name="ivy-resolve" depends="install-ivy" description="--> resolve ivy dependencies">
+        <property name="ivy.dep.file" value="${basedir}/ivy.xml" />
+        <ivy:retrieve />
+    </target>
+
+    <target name="copyjars" depends="ivy-resolve"
+            description="Copies the App Engine JARs to the WAR.">
+
+        <mkdir dir="${dist.war}/WEB-INF/lib" />
+        <copy todir="${dist.war}">
+            <fileset dir="war">
+                <include name="**/*" />
+            </fileset>
+        </copy>
+        <copy todir="${dist.war}/WEB-INF/lib" flatten="true">
+            <fileset dir="${sdk.dir}/lib/user">
+                <include name="**/appengine-api-1.0-sdk*.jar" />
+            </fileset>
+            <fileset dir="${sdk.dir}/lib/opt/user">
+                <include name="appengine-api-labs/v1/*.jar" />
+                <include name="jsr107/v1/*.jar" />
+                <include name="datanucleus/v2/*.jar" />
+                <include name="appengine-endpoints/v1/appengine-endpoints.jar" />
+            </fileset>
+        </copy>
+        <copy todir="war/WEB-INF/lib" flatten="true">
+        	 <fileset dir="${dist.war}/WEB-INF/lib">
+        	     <include name="*.jar" />
+        	 </fileset>    
+        </copy>    
+        
+    </target>
+
+    <path id="project.classpath">
+        <pathelement path="${dist.war}/WEB-INF/classes" />
+        <fileset dir="${dist.war}/WEB-INF/lib">
+            <include name="**/*.jar" />
+        </fileset>
+        <fileset dir="${sdk.dir}/lib">
+            <include name="shared/**/*.jar" />
+        </fileset>
+    </path>
+
+    <target name="compile" depends="copyjars"
+            description="Compiles Java source and copies other source files to the WAR.">
+        <mkdir dir="${dist.war}/WEB-INF/classes" />
+        <copy todir="${dist.war}/WEB-INF/classes">
+            <fileset dir="src">
+                <exclude name="**/*.java" />
+            </fileset>
+        </copy>
+        <javac srcdir="src"
+               destdir="${dist.war}/WEB-INF/classes"
+               classpathref="project.classpath"
+               debug="on" />
+    </target>
+
+    <target name="datanucleusenhance" depends="compile"
+            description="Performs enhancement on compiled data classes.">
+        <enhance_war war="${dist.war}">
+            <args>
+                <arg value="-enhancerVersion"/>
+                <arg value="v2"/>
+            </args>
+        </enhance_war>
+    </target>
+
+    <target name="runserver" depends="datanucleusenhance"
+            description="Starts the development server.">
+        <dev_appserver war="${dist.war}" />
+    </target>
+
+    <target name="eclipse" depends="copyjars"
+            description="setup eclipse project files">
+        <copy todir="${basedir}" >
+            <fileset dir="${tools.eclipse}"/>
+            <mapper type="glob" from="*" to=".*" />
+        </copy>
+        <copy todir="${dist.war}/WEB-INF/lib">
+            <fileset dir="${ivy.lib.dir}"/>
+        </copy>
+    </target>
+
+    <target name="deploy-app" description="Uploads and deploys the application to App Engine." depends="datanucleusenhance">
+        <input message="Enter email" addproperty="gae-email"/>
+        <input message="Enter password :- " addproperty="gae-password">
+            <handler type="secure"/>
+        </input>
+
+        <!-- Call dependencies here rather than with 'depends' attribute to get input first -->
+        <antcall target="datanucleusenhance" />
+
+        <java classname="com.google.appengine.tools.admin.AppCfg" inputstring="${gae-password}"
+              classpath="${sdk.dir}/lib/appengine-tools-api.jar" fork="true" failonerror="true">
+            <arg value="--email=${gae-email}" />
+            <arg value="--passin" />
+            <arg value="update" />
+            <arg value="${dist.war}" />
+        </java>
+    </target>
+
+    <target name="clean" >
+        <delete dir="${dist}" />
+        <delete file=".project" />
+         <delete file=".classpath" />
+         <delete dir="war/WEB-INF/lib" />
+    </target>
+
+</project>

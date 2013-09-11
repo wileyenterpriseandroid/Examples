@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.    
+-->
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+    <info
+            organisation="com.wiley"
+            module="contact"
+            status="integration">
+    </info>
+    <configurations defaultconfmapping="build->default;compile->compile(*),master(*);test,runtime->runtime(*),master(*)">
+        <conf name="build"/>
+        <conf name="compile"/>
+        <conf name="test" extends="compile"/>
+        <conf name="runtime" extends="compile"/>
+    </configurations>
+
+    <dependencies>
+        <!--
+            <dependency org="com.google.appengine" name="appengine-api-1.0-sdk" rev="1.7.4"/>
+            <dependency org="com.google.appengine" name="appengine-api-labs" rev="1.7.4"/>
+            <dependency org="com.google.appengine" name="appengine" rev="1.7.4"/>
+            <dependency org="com.google.appengine" name="appengine-jsr107cache" rev="1.7.4"/>
+
+
+            <dependency org="com.google.appengine.orm" name="datanucleus-appengine" rev="2.1.1"/>
+            <dependency org="org.datanucleus" name="datanucleus-core" rev="3.1.1"/>
+            <dependency org="org.datanucleus" name="datanucleus-api-jdo" rev="3.1.1"/>
+
+            <dependency org="org.apache.geronimo.specs" name="geronimo-jpa_2.0_spec" rev="1.1"/>
+            <dependency org="net.sf.jsr107cache" name="jsr107cache" rev="1.1"/>
+          <dependency org="org.eclipse.persistence" name="javax.persistence" rev="2.0.0"/>
+        <dependency org="javax.jdo" name="jdo2-api" rev="2.1.1" />
+        <dependency org="org.springframework" name="spring-jdbc" rev="3.1.2.RELEASE"/>
+        <dependency org="org.aspectj" name="aspectjweaver" rev="1.6.12"/>
+        <dependency org="cglib" name="cglib-full" rev="2.0.2"/>
+              -->
+        <dependency org="org.springframework.security.oauth" name="spring-security-oauth" rev="1.0.1.RELEASE" />
+        <dependency org="org.springframework" name="spring-jpa" rev="2.0.8" />
+
+
+        <dependency org="org.codehaus.jackson" name="jackson-core-asl" rev="1.9.5" />
+        <dependency org="org.codehaus.jackson" name="jackson-mapper-lgpl" rev="1.9.5"/>
+        <dependency org="org.apache.tomcat" name="servlet-api" rev="6.0.35"/>
+
+        <dependency org="org.springframework" name="spring-core" rev="3.1.2.RELEASE"/>
+        <dependency org="org.springframework" name="spring-beans" rev="3.1.2.RELEASE"/>
+        <dependency org="org.springframework" name="spring-context" rev="3.1.2.RELEASE"/>
+        <dependency org="org.springframework" name="spring-asm" rev="3.1.2.RELEASE"/>
+
+        <dependency org="org.springframework" name="spring-oxm" rev="3.1.2.RELEASE"/>
+        <dependency org="org.springframework" name="spring-orm" rev="3.1.2.RELEASE"/>
+        <dependency org="org.springframework" name="spring-aop" rev="3.1.2.RELEASE"/>
+        <dependency org="org.springframework" name="spring-expression" rev="3.1.2.RELEASE"/>
+
+        <dependency org="org.springframework.data" name="spring-data-jpa" rev="1.1.2.RELEASE">
+            <exclude org="org.springframework" />
+        </dependency>
+
+        <dependency org="org.springframework" name="spring-webmvc" rev="3.1.2.RELEASE" />
+        <dependency org="org.springframework" name="spring-tx" rev="3.1.2.RELEASE"/>
+
+
+        <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.6.6"/>
+
+        <dependency org="log4j" name="log4j" rev="1.2.16"/>
+
+        <dependency org="junit" name="junit" rev="4.10"/>
+        <dependency org="org.springframework" name="spring-test" rev="3.1.2.RELEASE"/>
+        <dependency org="commons-httpclient" name="commons-httpclient" rev="3.1"/>
+   	 	<dependency org="com.google.guava" name="guava" rev="14.0" />
+    
+    </dependencies>
+</ivy-module>

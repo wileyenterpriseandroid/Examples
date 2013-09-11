@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/row_patients_ssn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="4dp"
+        android:paddingTop="6dp"
+        android:textIsSelectable="false" />
+
+    <TextView
+        android:id="@+id/row_patients_fname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/row_patients_ssn"
+        android:paddingLeft="4dp"
+        android:textIsSelectable="false"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/row_patients_lname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/row_patients_fname"
+        android:layout_alignParentLeft="true"
+        android:paddingRight="3dp"
+        android:textIsSelectable="false"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/row_patients_insurer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/row_patients_fname"
+        android:paddingRight="3dp"
+        android:paddingTop="6dp"
+        android:textIsSelectable="false" />
+
+</RelativeLayout>

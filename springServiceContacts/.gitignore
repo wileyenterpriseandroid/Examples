@@ -1,0 +1,15 @@
+.DS_*
+.checkstyle
+.classpath
+.project
+.settings
+/bin
+/build
+/dist
+/eclipse
+/ivy
+/build.ant
+contact.hb.sql
+springcontact.sql
+springContact.sql
+springServiceContacts.log

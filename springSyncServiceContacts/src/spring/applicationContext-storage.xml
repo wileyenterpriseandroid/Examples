@@ -1,0 +1,67 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+			http://www.springframework.org/schema/aop 
+     		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+     	    http://www.springframework.org/schema/tx 
+     		http://www.springframework.org/schema/tx/spring-tx-3.1.xsd"
+	        >
+
+   <!-- the DataSource (parameterized for configuration via a PropertyPlaceHolderConfigurer) -->
+    <bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/springsynccontact"/>
+        <property name="username" value="root"/>
+        <property name="password" value="mysql"/>
+    </bean>
+ 
+    <tx:annotation-driven transaction-manager="txManager"/>
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+  		<property name="dataSource" ref="dataSource"/>
+  	</bean>
+  	
+	<!-- use jdbc dao -->
+  	<bean id="contactSyncService" class="com.enterpriseandroid.springServiceContacts.service.impl.ContactServiceImpl"
+ 	    p:contactDao-ref="contactDaoJdbc" />
+
+	
+ 	<!-- to use hibernate uncommet this and comment out the contactService that uses the contactDaoJdbc		
+  	<bean id="contactSyncService" class="com.enterpriseandroid.springServiceContacts.service.impl.ContactServiceImpl"
+ 	    p:contactDao-ref="contactDaoHibernate" />
+    -->
+  
+  	
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="configLocation" value="classpath:hibernateAnnotation.cfg.xml"/>
+        <property name="dataSource" ref="dataSource"/>        
+    </bean>
+    
+  	<bean id="contactDaoHibernate" class="com.enterpriseandroid.springServiceContacts.dao.impl.ContactDaoHibernateImpl"
+		p:sessionFactory-ref="sessionFactory" >
+    </bean>
+ 
+ 	<bean id="contactDaoJdbc" class="com.enterpriseandroid.springServiceContacts.dao.impl.ContactDaoJdbcImpl" p:dataSource-ref="dataSource"  >
+    </bean>
+ 
+  <!--
+  	We are not using the transaction manager
+ 	 <tx:advice id="txAdvice" transaction-manager="txManager">
+ 		 <tx:attributes>
+    		<tx:method name="get*" read-only="true"/>
+    		<tx:method name="find*" read-only="true"/>
+   	 		<tx:method name="*"/>
+ 	    </tx:attributes>
+  	</tx:advice>
+  <aop:config>
+	  <aop:pointcut id="contactServiceOperation" expression="execution(* com.enterpriseandroid.springServiceContacts.service.ContactService.*(..))"/>
+	  <aop:advisor advice-ref="txAdvice" pointcut-ref="contactServiceOperation"/>
+  </aop:config> 	
+-->
+</beans>
