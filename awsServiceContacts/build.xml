@@ -167,7 +167,8 @@
      </copy>    
  </target> 
  
- <target name="createdbtable" description="Create dynamodb table" >
+ <target name="createdbtable" depends="compile"
+      description="Create dynamodb table" >
 	 <java classname="unit.test.dao.CreateLocalIndexTable">
 	        <classpath refid="test.classpath"/>
 	 </java> 

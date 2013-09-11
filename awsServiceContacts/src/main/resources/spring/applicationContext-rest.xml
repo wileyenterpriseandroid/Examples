@@ -33,5 +33,9 @@
 			</util:list>
 		</property>
 	</bean>
- 
+	 <mvc:default-servlet-handler/>
+	<!-- Should be defined last! -->
+	<mvc:annotation-driven />  
+	<mvc:resources mapping="/resource/**" location="/resource/"/>
+	
 </beans>
