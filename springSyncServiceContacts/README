@@ -80,15 +80,15 @@ Instructions for running the Spring Service Contacts example using ant:
 
    http://tomcat.apache.org/tomcat-7.0-doc/appdev/installation.html
 
-   Basically, just uncompress the download archive where you would like Tomcat to reside.
-   Then set the shell variable, CATALINA_HOME to that directory. There’s lots of documentation
-   about Tomcat online:
+   Basically, just uncompress the download archive where you would like
+   Tomcat to reside. Then set the shell variable, CATALINA_HOME to that
+   directory. There’s lots of documentation about Tomcat online:
 
    http://tomcat.apache.org/tomcat-7.0-doc/index.html
 
-   After you install it, Tomcat is very easy to use. To install an application, you just need
-   to place the application’s war fi le into $CATALINA_HOME/webapps and then restart
-   Tomcat with:
+   After you install it, Tomcat is very easy to use. To install an
+   application, you just need to place the application’s war file into
+   $CATALINA_HOME/webapps and then restart Tomcat with:
 
    $CATALINA_HOME/bin/shutdown.sh
    $CATALINA_HOME/bin/startup.sh
@@ -101,8 +101,8 @@ Instructions for running the Spring Service Contacts example using ant:
    “restart Tomcat” as a shorthand for restarting the server if it’s running or
    starting it if it’s not.
 
-   Of course, if you’ll be using Eclipse, it’s even easier than that — the IDE will deploy your
-   application and handle the installation for you.
+   Of course, if you’ll be using Eclipse, it’s even easier than that — the IDE
+   will deploy your application and handle the installation for you.
 
 4. Install ant.
 
