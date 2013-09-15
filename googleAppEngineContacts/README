@@ -3,8 +3,7 @@ creates a RESTful Contacts service with backend persistence support from
 Google App Engine. This service provides an operational backend
 for the examples in chapter 5.  The example assumes that:
 
-* You are familiar with and have run the code in
-  restfulCachingProviderContacts, syncAdapterContacts and in
+* You are familiar with the code in syncAdapterContacts and on
   springServiceContacts.
 
 You can use any of the three major operating systems for PCs to develop the
@@ -16,13 +15,13 @@ Java (1.7.0_25), Appengine-java-sdk(1.8.0), EclipseEE (Kepler)
 
 === Prepare:
 
+The App Engine example also relies on Spring, but not on Tomcat, and of
+course, requires a Google account for App Engine use, so create one if
+needed. Log in to your Google account and then go to:
+
+https://appengine.google.com/
+
 1. Create a Google App Engine Service
-
-   The App Engine example also relies on Spring and Tomcat, and of course
-   requires a Google account, so create one if necessary. Log in to your
-   Google account and then go to:
-
-   https://appengine.google.com/
 
    Click the Create Application button, and then follow the subsequent
    instructions to create a Google App Engine application. Start by creating
@@ -39,47 +38,65 @@ Java (1.7.0_25), Appengine-java-sdk(1.8.0), EclipseEE (Kepler)
 
    https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Java
 
+   Note: Make sure that you download the App Engine SDK for Java, not for
+   Python or another language. It’s easy to pick the wrong one for the
+   example on the download page. Also choose a version that matches your
+   OS and Java binary version, 32- or 64-bit.
+
    Google has significant App Engine documentation online:
 
    https://developers.google.com/appengine/
 
-3. Install the Google Plugin for Eclipse
+3. Import the Project into Eclipse
 
-   Follow the instructions below to install the Google plugin for eclipse:
+   Just like you have done for the other service projects in the book so far,
+   import the project into Eclipse:
+
+   cd $CODE/googleAppEngineContacts/
+   ant eclipse
+
+   Then import the project folder into Eclipse.
+
+4. Install the Google Plugin for Eclipse
+
+   Follow the instructions below to install the Google plugin for Eclipse:
 
    https://developers.google.com/appengine/docs/java/tools/eclipse
 
    Edit the build properties file:
 
-   $(CODE)/googleAppEngineContacts/build.properties
+   $CODE/googleAppEngineContacts/build.properties
 
-   to provide the path where you installed the App Engine SDK.
+   to enter the path where you installed the App Engine SDK.
 
-4. Configure an Application Identifier
+5. Configure an Application Identifier
 
-   Add the application identifier from step 1 into the file
-   $(CODE)/googleAppEngineContacts/war/WEB-INF/appengine-web.xml
-
-   as follows, on line 3:
+   You need to put the application identifier you created in Step 1 into the
+   $CODE/war/WEB-INF/appengine-web.xml, as follows, on line 3:
 
    1 <?xml version="1.0" encoding="utf-8"?>
    2 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
-   3   <application>Add_your_application_id_here</application>
+   3 <application>Add_your_application_id_here</application>
    4 <version>1</version
 
-5. Create an application specific password:
+6. Create an Application-Specific Password
 
-   You wont be able to deploy updates to your app engine service using
-   your normal account password, instead you must create an application
-   specific password from the following location:
+   You won’t be able to deploy updates to your app engine service using your
+   normal account password; instead you must create an application-specific
+   password from the following location:
 
-   https://accounts.google.com/IssuedAuthSubTokens?hide_authsub=1#accesscodes
+   https://accounts.google.com/IssuedAuthSubTokens?hide_authsub=1#acccess_codes
 
-   When invoking update requests, from ant, or in eclipse, use the
-   following credentials:
+   Application-specific passwords require you to have two-step verification
+   in place, so if you don’t have it on your Google account, you’ll have
+   to turn it on and authorize your computer before completing the process.
+   Be sure to have a phone or a device on which you can receive text messages
+   available. The included link provides a YouTube tutorial on this process.
+   When invoking update requests from ant or in eclipse, use the following
+   credentials:
 
-   Email address: your account email address
-   Password: An application specific password
+   * E-mail address—Your account e-mail address
+   * Password—An application-specifi c password
 
 === Deploy the code
 
@@ -88,64 +105,91 @@ Eclipse.
 
 == Deploy the code with ant:
 
-Execute steps 1-4 above.
+With Ant, you can deploy the contact service to the Google cloud, or you
+can run a local instance:
 
-1. To run the code locally on port 8080:
+Execute steps 1-6 above.
+
+1. Deploy the project:
+
+   cd $CODE/googleAppEngineContacts
+   ant
+
+2. To run the code locally on port 8080:
 
    ant runserver
 
-   The local endpoint is:
+   The local endpoint is, which is slight different from the other examples:
+
    http://localhost:8080/Contacts
 
-   Client commands for local use:
-
-   Create contacts:
-   curl -H "Content-Type: application/json" -X POST -d '{"firstName":"John", "lastName":"Smith", "phone":2345678901, "email":"jsmith@nosuchhost.com" }' http://localhost:8080/Contacts
-
-   Get contacts:
-   curl -X GET http://localhost:8080/Contacts
-
-2. To deploy to the google cloud
-   Run the command:
+3. To deploy to the google cloud, run the command:
 
    ant deploy-app
 
-   Enter credentials as specified as above.
+   Enter credentials as specified previously for your application specific password.
 
-=== Run with Eclipse
+Testing the local service:
+
+To test the service, run the following commands in a shell (cygwin for Windows).
+
+Create contacts:
+
+curl -H "Content-Type: application/json" -X POST -d '{"firstName":"John","lastName":"Smith", "phone":2345678901, "email":"jsmith@nosuchhost.com" }' http://localhost:8080/Contacts
+
+Get contacts:
+
+curl -H "Content-Type: application/json" -X GET http://localhost:8080/Contacts
+
+
+=== Deploying with Eclipse
 
 Execute steps 1-4 of Prepare.
 
 1. Setup the Eclipse build files:
 
+   cd $CODE/googleAppEngineContacts
    ant eclipse
 
    Note: In this project, this command also resolves ivy dependencies.
 
 2. As shown in springServiceContacts, import the project directory in Eclipse:
 
-   $(CODE)/googleAppEngineContacts
+   $CODE/googleAppEngineContacts
 
 3. Add the AppEngine SDK to the classpath.
 
    a. Right click the googleAppEngineContacts project
+
    b. Go to Project menu and select properties
-   c. Click the "Java Build Path" on the left.
+
+   c. Click the "Java Build Path" on the left. When the dialog opens, click the
+      library tab.
+
    d. Click the "Add Library..." button
+
    e. Select "Google App Engine", and then click the "Next" button
-   f. Select the App Engine SDK, and then click "Finish".
+
+   f. Select the App Engine SDK, choose use default if you've just installed
+      a single copy, and then and then click "Finish".
+
+   Click Ok and Eclipse will build the project.
 
 4. To run the sample code locally, right click the googleAppEngineContact and
    select the "Run As->Web Application" menu.
 
 5. To deploy the app to Google:
+
    a. Right click googleAppEngineContacts
+
    b. Select "Google -> Deploy to App Engine"
 
    Note: You can view log messages by selecting your_app_id from the list of
    apps listed from: http://appengine.google.com/
 
    Google provides a large arrays of service statistics here as well.
+
+Testing the deployed service:
 
 Client commands for cloud use (from Eclipse or command line):
 
@@ -154,4 +198,12 @@ curl -H "Content-Type: application/json" -X POST -d '{"firstName":"John", "lastN
 
 Get contacts:
 curl -X GET http://<your_ae_id>.appspot.com/Contacts
+
+Replace <your_ae_id> with your application ID.
+
+Congratulations! You can now change the Chapter 5 endpoint again to point
+in $CODE/syncAdapterContacts to your new service URL on Google. If the
+contacts service was a product, you would now, thanks to its flexible
+architecture, be able to deploy it on your own hardware, the AWS cloud,
+or Google’s App Engine cloud.
 

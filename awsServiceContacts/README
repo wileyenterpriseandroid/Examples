@@ -1,10 +1,10 @@
 This is sample code for Chapter 7 of Wiley's Enterprise Android. The sample
 creates a RESTful Contacts service with backend persistence support from
 Amazon web services (DynamoDB). This service provides an operational backend
-for the examples in chapter 5. The example assumes that:
+for the syncAdapterContacts example from chapter 5. The example assumes that:
 
- * You are familiar with and have run the code in
-   restfulCachingProviderContacts, syncAdapterContacts and in springServiceContacts.
+ * You are familiar with and have run the code in syncAdapterContacts and
+   in springSyncServiceContacts.
 
 You can use any of the three major operating systems for PCs to develop the
 web backend: Linux, Mac OS, or Windows. The OS is not particularly relevant
@@ -13,14 +13,31 @@ versions, but was specifically tested on:
 
 Java (1.7.0_25), EclipseEE (Kepler), and Tomcat (7.0.12)
 
+This examples does not require mysql.
+
+Prepare: Prerequisites and Getting Started
+
+Chapter 6 covered all the requirements for developing a Java web application
+based on Spring, Jackson, and the application container, Tomcat.  This
+example requires Tomcat and Ant installation.
+
+The Amazon Web Services DynamoDB service example leverages many of these same
+tools, but also requires the presence of the Amazon Web Services SDK, an AWS
+account, and credentials.
+
+
 === Prepare:
 
 1. Create an Amazon Account
 
    Create an Amazon AWS account if you do not already have one. To create the
-   account, go to http://aws.amazon.com/ and click the sign-up button. You
-   should be able to follow the instructions from that point to create the
-   account.
+   account, go to:
+
+    http://aws.amazon.com/
+
+   and click the sign-up button. You should be able to follow the instructions
+   from that point to create the account. You will need a credit card to
+   complete sign-up.
 
 2. Configure DynamoDB with Contacts Application Schema
 
@@ -34,27 +51,28 @@ Java (1.7.0_25), EclipseEE (Kepler), and Tomcat (7.0.12)
    create application tables in DynamoDB - the create table wizard may pop
    up by default.
 
-   Working with AWS is different than working with traditional SQL
-   databases⎯schema management takes place in an online editing tool, rather
-   than with a source code-based SQL language. You need to create the
-   following three tables:
+   Working with AWS is different than working with traditional SQL databases —
+   schema management takes place in an online editing tool, rather than with a
+   source code-based SQL language. At the top of the page in the Dynamo DB
+   section, you should see a row of buttons. Find the one labeled Create Table
+   and repeat the table creation process for the next tables. You need to
+   create the following three tables:
 
    Contact, ContactFNameIndex, and ContactUpdateTimeIndex.
 
-    * The "Contact" table stores contact data. When creating each table, you
+    * The Contact table stores contact data. When creating each table, you
       will need to decide whether the table will use a hash key and range key,
       or a hash key only. This table needs only a hash key, which the UI will
-      prompt you to add as a "hash attribute name".
+      prompt you to add as a hash attribute name. Click the appropriate radio
+      button. The name should be id.
 
-      The name should be: "id".
-
-      Next, hit continue through the optional add indexes screen - nothing to
-      add right now - none of the tables use a secondary index - then skip
-      ahead to step 3 for each table to specify read/write through-puts.
+      Next, continue through the optional add indexes screen — nothing to add
+      right now, none of the tables use a secondary index - then use Step 3
+      for each table to specify read/write throughputs.
 
     * "ContactFNameIndex" stores the index for searching on the first name. This
-      table needs a hash key and a range key, and you should define the key
-      type as String.
+      table needs a hash key and a range key, and you should define the type of
+      the key as String.
 
       The hash attribute name is, "userId"
 
@@ -68,7 +86,11 @@ Java (1.7.0_25), EclipseEE (Kepler), and Tomcat (7.0.12)
       This table needs both hash and range keys.
 
       The range and hash attribute names are, "userId" and "updateTime",
-      respectively.
+      respectively. Again, the types of the keys are String.
+
+      You may see a message regarding throughput warnings being sent to the
+      designated e-mail recipient. Click continue if you haven’t responded
+      to the confirmation e-mail yet.
 
       Hit continue to skip adding indexes.
 
@@ -94,7 +116,14 @@ Java (1.7.0_25), EclipseEE (Kepler), and Tomcat (7.0.12)
 
    http://aws.amazon.com/dynamodb/pricing/
 
-   Finish table creation by specifying an email address for notification.
+   Click Continue. The next screen optionally allows you to monitor your
+   request rates and set throughput alarms. We won’t be doing that for our
+   example, so just enter an e-mail address for notification and click
+   Continue to finish table creation.
+
+   The final page provides a summary for your review. Click Create, and
+   you’ll be taken to the Services page, providing both editing capabilities
+   and detailed information about the tables you just created.
 
 4. Create Access Credentials
 
@@ -102,7 +131,10 @@ Java (1.7.0_25), EclipseEE (Kepler), and Tomcat (7.0.12)
    key, as follows:
 
    AWS Management Console ->
-   Your Name -> My Account -> Security Credentials (on the left)
+   Your Name Menu -> My Account -> Security Credentials (on the left)
+
+   Note: You will need permission to modify the AWS account to edit Security
+   Credentials.
 
    This brings you to the AWS security credentials page where you can create an
    access key, with:
@@ -128,61 +160,65 @@ Java (1.7.0_25), EclipseEE (Kepler), and Tomcat (7.0.12)
 
    http://aws.amazon.com/sdkforjava/
 
-   Note: Just to run the example, you only need the SDK for its .jar file,
-   which can be resolved in the project's ivy.xml file. See the dependencies
-   section for more information.
+   Note: Strictly speaking, you only need the SDK for its .jar file, which can
+   be resolved in the project’s ivy.xml file. Thus, it’s optional for you to
+   download the Amazon SDK.
 
 6. Add Security Credentials
 
    Add the access key and secret access key to the file:
 
-   $(CODE)/awsServiceContacts/src/main/resources/com/enterpriseandroid/awsContacts/dao/impl/AwsCredentials.properties
+   $CODE/awsServiceContacts/src/main/resources/com/enterpriseandroid/awsContacts/dao/impl/AwsCredentials.properties
 
    By entering the keys as follows:
 
    accessKey=Insert your access key here
    secretKey=Insert your secret key here
 
+   Note: Make certain not to accidentally swap the access and secret keys.
+
    Finally, change the following field:
 
-   $(CODE)/awsServiceContacts/src/main/java/com/enterpriseandroid/awsContacts/rest/ContactController.USER_ID
+   $CODE/awsServiceContacts/src/main/java/com/enterpriseandroid/awsContacts/rest/ContactController.USER_ID
 
    to be your amazon account username.
 
-   Note: While its possible to run the contacts service with dynamo DB
-   remotely, performance will improve significantly by running the tomcat
-   instance on an EC2 instance. See the AWS console for more information
-   on EC2.
+   Note: While it’s possible to run the contacts service with DynamoDB
+   remotely, performance will improve signifi cantly by running the tomcat
+   instance on an EC2 instance. See the AWS console for more information on
+   EC2. It’s fine to run the examples on your local machine; contacts will
+   save to DynamoDB remotely.
 
-=== Running the code:
+=== Deploy the Service
 
 As you've seen, you can run the code using ant or eclipse.
 
-== Run the code with ant:
+== Deploy the code with ant:
 
 1. Build the code with:
 
+   cd $CODE/awsServiceContacts
    ant dist
 
 2. Deploy the code to tomcat:
 
-   cp dist/awsServiceContacts.war $(CATALINA_HOME)/webapps
+   cp dist/awsServiceContacts.war $CATALINA_HOME/webapps
 
 3. Restart tomcat.
 
-== Run the code with eclipse:
+== Deploy the code with eclipse:
 
 1. Run ant to initialize Eclipse
 
    As in the last chapter, you’ll need to use ant to initialize eclipse:
 
-   cd $(CODE)/awsServiceContacts
+   cd $CODE/awsServiceContacts
    ant eclipse
 
 2. Import the AWS project directory in Eclipse, as was done in chapter 6 for
    springServiceContacts:
 
-   $(CODE)/awsServiceContacts
+   $CODE/awsServiceContacts
 
    Use:
 
@@ -194,7 +230,7 @@ As you've seen, you can run the code using ant or eclipse.
 
     Select:
 
-    Run As->Run on Server->Previously added Tomcat Configuration
+    Run As->Run on Server->Previously added (in ch6) Tomcat Configuration
 
     Wait for ivy to resolve dependencies.
 
@@ -206,9 +242,14 @@ As you've seen, you can run the code using ant or eclipse.
 
 == Clients:
 
-Run the chapter 5 clients, and curl against the following local endpoint:
+Run the chapter 5 client syncAdapterContacts, the Chrome plug-in, or curl
+against the following local endpoint:
 
 http://localhost:8080/awsServiceContacts/Contacts
+
+Release Note: We apologize for the inconvenience: Although the chapter states
+you can run both chapter 5 clients against the $CODE/awsServiceContacts
+project, in fact, you can only use $CODE/syncAdapterContacts.
 
 Test your service using the following commands:
 

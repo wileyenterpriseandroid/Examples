@@ -11,14 +11,13 @@ versions, but was specifically tested on:
 Java (1.7.0_25),  MySQL(5.7), Ant(1.9.1),
 EclipseEE (Kepler), and Tomcat (7.0.12)
 
-The $(CODE) place-holder refers to the location of the
-Examples directory that holds all of the Enterprise Android Examples.
+The $CODE place-holder refers to the location of the Examples directory that
+holds all of the Enterprise Android Examples.
 
  The example assumes that:
 
- * You are familiar with the code in
-   restfulCachingProviderContacts which provide the
-   Android client code for this service.
+ * You are familiar with the code in restfulCachingProviderContacts which
+   provides the Android client code for this service.
 
 Instructions for running the Spring Service Contacts example using ant:
 
@@ -42,7 +41,6 @@ Instructions for running the Spring Service Contacts example using ant:
    You can find detailed instructions here:
 
    http://dev.mysql.com/doc/refman/5.7/en/installing.html
-
 
    Note: Make sure that the root password is "mysql" - this password is the
    default, you should not have to do anything to set this password. Or,
@@ -69,20 +67,20 @@ Instructions for running the Spring Service Contacts example using ant:
 
    CATALINA_HOME is the directory where you installed Tomcat.
 
-   Put the directory $(CATALINA_HOME)/bin in your Path environment
+   Put the directory $CATALINA_HOME/bin in your Path environment
    variable.
 
 4. Install Apache Ant from:
 
    http://ant.apache.org/bindownload.cgi
 
-   Put the directory $(ANT_HOME)/bin in your Path environment variable.
+   Put the directory $ANT_HOME/bin in your Path environment variable.
 
 5. Build the project using ant, and setup the database:
 
    Build the project distribution war archive using:
 
-   cd $(CODE)/springServiceContacts
+   cd $CODE/springServiceContacts
    ant dist
 
    This command will compile project source files and will download
@@ -111,11 +109,11 @@ Instructions for running the Spring Service Contacts example using ant:
 
 2. Copy the war file to tomcat:
 
-   $(CODE)/springServiceContacts/dist/springServiceContacts.war
+   $CODE/springServiceContacts/dist/springServiceContacts.war
 
    to
 
-   $(CATALINA_HOME)/webapps
+   $CATALINA_HOME/webapps
 
    Note: CATALINA_HOME is the home directory where tomcat is installed.
 
@@ -215,7 +213,7 @@ http://localhost:8080/springServiceContacts/Contacts
 
 Follow the instructions in:
 
-$(CODE)/restfulCachingProviderContacts/README
+$CODE/restfulCachingProviderContacts/README
 
 
 Test your service using the following commands:

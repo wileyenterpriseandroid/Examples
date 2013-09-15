@@ -13,25 +13,21 @@ software versions, but was specifically tested on:
 Java (1.7.0_25),  MySQL(5.7), Ant(1.9.1),
 EclipseEE (Kepler), and Tomcat (7.0.12)
 
-The CODE variable refers to the location of the
-wileyenterpriseandroid/Examples directory.
-
  The example assumes that:
 
- * You are familiar with the code in restfulCachingProviderContacts which
+ * You are familiar with the code in syncAdapterContacts which
    provides the Android client code for this service.
 
 
 Before getting started:
 
-Note: The CODE variable refers to the location of the wileyenterpriseandroid
+Note: The CODE variable refers to the location of the Wiley Enterprise Android
 Examples directory. The reader should interpret CODE references as a
 shorthand for this directory. It’s optional for readers to actually set
 this variable in their shell of choice. For example, with Windows cmd,
 you might use %CODE%/<Example>, or in bash you could use $CODE/<Example>
-for example $CODE/springServiceContacts— but only if you set the
+for example $CODE/springServiceContacts — but only if you set the
 variable yourself.
-
 
 Instructions for running the Spring Service Contacts example using ant:
 
@@ -333,11 +329,7 @@ $CODE/syncAdapterContacts/README
 
 Test your service using the following commands:
 
-Create contacts:
-
-curl -H "Content-Type: application/json" -X POST -d '{"firstName":"John", "lastName":"Smith", "phone":2345678901, "email":"jsmith@nosuchhost.com" }' http://localhost:8080/springServiceContacts/Contacts
-
-And the sync version:
+Create contacts for the sync service:
 
 curl -H "Content-Type: application/json" -X POST -d '{"firstName":"John", "lastName":"Smith", "phone":2345678901, "email":"jsmith@nosuchhost.com" }' http://localhost:8080/springSyncServiceContacts/Contacts
 
@@ -349,7 +341,7 @@ or
 
 curl -X GET http://localhost:8080/springSyncServiceContacts/Contacts
 
-=== Chrome Plug-in:
+=== Advanced REST Client Chrome REST Extension:
 
 Since you’ve just written a simple web service, it’s possible to drive
 its operation using only a web browser using the endpoint URL:
