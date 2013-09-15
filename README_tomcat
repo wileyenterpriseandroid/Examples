@@ -1,3 +1,5 @@
+This file contains notes regarding the use of Tomcat in the book projects:
+
 To debug problems with Tomcat, view the contents of the file:
 
 $CATALINA_HOME/logs/catalina.out

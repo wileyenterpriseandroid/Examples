@@ -1,18 +1,24 @@
-This file contains tips for readers having problems with mysql:
+This file contains notes regarding the use of mysql in the book projects:
 
 Mysql on windows:
 
 === To guarantee installation of the mysql service on windows:
 
-Go to control panel and bring up the user account control section by searching
+1. Go to control panel and bring up the user account control section by searching
 for "User Account Control" in the upper right search box, then turn off
-security notifications and reboot your computer.
+security notifications as follows in the section entitled:
 
-Then run the following command:
+Choose when to be notified about changes to your computer
+
+Drag the bar from "Always Notify" to "Never Notify"
+
+2. Reboot your computer.
+
+3. Then run the following command:
 
 $MYSQL_HOME/bin/mysqld --install
 
-and reboot your computer.
+4. reboot your computer.
 
 === To set the mysql root password, execute the instructions on the following
 page:

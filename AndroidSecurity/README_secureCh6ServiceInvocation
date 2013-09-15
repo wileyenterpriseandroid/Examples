@@ -179,6 +179,10 @@ Overview of tasks for securing the Chapter6 Contacts Service:
         * Using a native technology called the Apache Portable Runtime, which
           is generally used in development deployments.
 
+        Note: Keep in mind that they changes you are about to make to your
+        Tomcat configuration may adversely affect the functioning of projects
+        associated with earlier chapters.
+
         1. Configuring Tomcat using JSSE
 
              a. Create a service keystore and import the contact private key

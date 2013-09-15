@@ -1,0 +1,9 @@
+This file contains notes regarding the use of ivy in the book projects:
+
+Ivy re-resolve: Ivy keeps a cache of jar files which can sometimes become
+stale and which can create compile errors in the projects that use ivy -
+mainly the service oriented examples. The solution to this problem is to
+"re-resolve" the ivy dependencies in Eclipse. You can perform this task
+as follows:
+
+Add instructions.

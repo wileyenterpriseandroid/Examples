@@ -21,7 +21,11 @@ projects correspond to chapters according to the table below:
 
 ## Getting the code
 
-The best way to download these examples is by using the Repo tool.
+Note: The best way to download these examples is by using the Repo tool. If you
+are reading the code associated with the Wiley distribution, we strongly
+recommend that you install git and begin your work from the code repositories
+and keep the code up to date periodically using a "git pull" operation.
+
 Get it like this:
 ```
 curl https://dl-ssl.google.com/dl/googlesource/git-repo/repo > ~/bin/repo

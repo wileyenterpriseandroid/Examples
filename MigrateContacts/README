@@ -56,6 +56,11 @@ Note: Use .bat on windows.
 Verify that the service is running by loading the following URL in a browser:
 http://localhost:8080/migrate
 
+Note: This URL is going to change to the following in a future release
+of the migrate project:
+
+http://localhost:8080/WebData
+
 The location display information about Migrate.
 
 --------------------------------------------------
