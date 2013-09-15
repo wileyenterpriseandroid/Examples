@@ -40,8 +40,7 @@ public class SecureConnectionActivity extends Activity {
      *
      * from /etc/resolv.conf
      */
-    public static final String SECURE_HOST = "jibedev.net";
-//    public static final String SECURE_HOST = "your_dns_hostname_with_root_domain";
+    public static final String SECURE_HOST = "your_dns_hostname_with_root_domain";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

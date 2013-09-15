@@ -33,7 +33,7 @@ import android.content.res.Resources;
  */
 public class HttpsClientHelper {
     public static final int SECURE_PORT = 443;
-    public static String CAPASSWORD = "contacts";
+    public static String CAPASSWORD = "your_ca_keystore_password";
 
 	public static HttpClient getHttpClient(Resources resources)
 			throws KeyManagementException, UnrecoverableKeyException,
