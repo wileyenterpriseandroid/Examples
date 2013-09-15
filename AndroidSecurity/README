@@ -21,6 +21,8 @@ The code includes an application UI called, AndroidSecurity, that allows you
 to execute each of these examples. Run, "ant eclipse" and then you can
 open the project folder in Eclipse.
 
+Right click, Run As Android Application.
+
 Note: The example "Protecting Communication" includes an additional set of
 tasks that you must follow before you can use the AndroidSecurity UI
 to run it. You can find these instructions in the chapter text, and in the
