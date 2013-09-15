@@ -2,7 +2,13 @@ This is sample code for Chapter 12 of Wiley's Enterprise Android. This code
 provides an example for invoking a secure connection on a secure version of
 the chapter 6 service.
 
-Securing the Chapter6 Contacts Service:
+This chapter covers the following steps:
+
+* Creating a site certificate and adding it to a keystore for authentication
+* Modifying the Chapter 6 Spring application context to support basic authentication
+* Configuring a demonstration user who can log into the Chapter 6 service
+
+Overview of tasks for securing the Chapter6 Contacts Service:
 --------------------
 
 1. Securing the chapter 6 contacts web service:
@@ -15,68 +21,75 @@ Securing the Chapter6 Contacts Service:
 2. Invoking a secure connection on Android and sending client credentials  to
    the service using basic authentication.
 
+===
+
 1. Securing the chapter 6 contacts service
 ----------
 
     a. Creating a “Certificate Signing Request”
-       The following steps for creating a signing request are based on the
-       OpenSSL tool, which is pre-installed on Linux and Mac OS:
+
+       Before buying or signing your own certificate, you will need to
+       create a “Certificate Signing Request” that you can send to a commercial
+       CA, or sign yourself (with instructions that follow).
+
+       You can learn more information about this request online:
+
+       http://en.wikipedia.org/wiki/Certificate_signing_request
+
+       The following steps for creating this request are based on the OpenSSL
+       tool, which is pre-installed on Linux and Mac OS:
+
+       Note: When you run the commands that follow, you should answer all of
+       the questions, and answer them consistently (for example, use the same
+       city in all responses).
 
         1. If you are using Windows, install cygwin software from the following
            location:
 
            http://www.cygwin.com/install.html
 
-           a. After launching the cygwin setup, select a host to install from,
-              and then check the following packages for installation:
-
-              * Net/OpenSSH
-              * Net/OpenSSL
-              * Perl/Larry Wall’s Wait Practical Extraction and Report Language
-
-            b. Wait until cygwin completes its install (a fast connection takes
-               5-10 minutes).
+           as described in chapter 6.
 
         2. Start a shell on your particular platform. On Windows, double-click
            Cygwin-Terminal. The example assumes that the SSL software is located
            at:
 
-           OPENSSL=/usr/bin/openssl
+           /usr/bin/openssl
 
-        3. Create a CA working directory and change directory to it. These
-           instructions refer to it as CA_DIR.
+        3. Create a CA working directory in $CA_DIR/AndroidSecurity/cadir these instructions
+           refer to it as CA_DIR - and change directory to it:
 
-           cd $(CA_DIR)
+           cd $CA_DIR
 
            Run all commands from this directory.
 
         4. Create a private key as follows:
 
-           $(OPENSSL)/openssl genrsa -out contacts_privkey.pem 1024
+           /usr/bin/openssl genrsa -out contacts_privkey.pem 1024
 
         5. Create a certificate as follows:
 
-           $(OPENSSL)/openssl req -new -x509 -key contacts_privkey.pem -out contacts_cert.pem
+           /usr/bin/openssl req -new -x509 -key contacts_privkey.pem -out contacts_cert.pem
 
-           Answer the questions.
+           Answer all the questions consistently.
 
            Note that when you generate the certificate, the "common name"
            should be the exact fully qualified hostname of the contacts service
            site - will be accessed from the Android client.
 
-           Please keep in mind that the FQDN you choose for your site must be
-           an actual resolvable DNS hostname from whatever Android environment
-           you use – the Android emulator or an Android device. It’s a good
-           idea to load the site name as a web page in the Android browser
-           to make certain Android can really see it. Note also, that the DNS
-           name must not use a known root domain like amazonaws.com, but must
-           be your own domain.
+           Note: Please keep in mind that the FQDN you choose for your site must be an
+           actual resolvable DNS hostname from whatever Android environment you
+           use - the Android emulator or an Android device. It’s a good idea to load the
+           site name as a web page in the Android browser to make certain Android can
+           really see it. Note also, that the DNS name must not use a known root domain
+           like amazonaws.com, but must be your own domain. Hover.com is a good place
+           to buy a domain name if you don't already have one.
 
          6. Create a “request to sign” the certificate, by concatenating the
             certificate from Step 5 with the private key from Step 4, as
             follows:
 
-            cat contacts_cert.pem contacts_privkey.pem | $(OPENSSL)/openssl x509 -x509toreq -signkey contacts_privkey.pem -out contacts_certreq.csr
+            cat contacts_cert.pem contacts_privkey.pem | /usr/bin/openssl x509 -x509toreq -signkey contacts_privkey.pem -out contacts_certreq.csr
 
             Now that you have a signing request, you can choose to do one of
             two things with it:
@@ -130,7 +143,7 @@ Securing the Chapter6 Contacts Service:
              sign with your CA is 365 days, as specified in the CA.pl script.
              If you need to make the period longer, you’ll need to modify
              CA.pl to change the duration.
-           h. Enter the passphrase from 1,b,2,b.
+           h. Enter the passphrase from 1,b,2,b - step b above.
 
     c. Obtaining a site certificate
 
@@ -139,7 +152,7 @@ Securing the Chapter6 Contacts Service:
        generated in demoCA. Run the following command from the output, demoCA
        directory from “Creating your own CA”:
 
-        $(OPENSSL)\openssl ca -policy policy_anything -in contacts_certreq.csr -out contactservice.pem
+        /usr/bin/openssl ca -policy policy_anything -in contacts_certreq.csr -out contactservice.pem
 
         1. Enter the passphrase that you entered from 1,b,2,b and sign and commit
            the new certificate. Note that you can only sign the same cert
@@ -148,7 +161,7 @@ Securing the Chapter6 Contacts Service:
            file contains your new certificate.
         3. You can now add contactservice.pem to web service back-ends to
            communicate using HTTPS with Android applications. You will add
-           $(CA_DIR)/demoCA/cacert.pem to the root store of your Android
+           $CA_DIR/demoCA/cacert.pem to the root store of your Android
            client, which is explained shortly.
 
     If you did not create your own CA, from this point, use your
@@ -178,11 +191,11 @@ Securing the Chapter6 Contacts Service:
 
                 Convert the private key:
 
-                openssl pkcs8 -topk8 -nocrypt -in  contacts_privkey.pem -inform PEM -out contacts_privkey.der -outform DER
+                /usr/bin/openssl pkcs8 -topk8 -nocrypt -in  contacts_privkey.pem -inform PEM -out contacts_privkey.der -outform DER
 
                 Convert the signed certificate:
 
-                openssl x509 -in contactservice.pem -inform PEM -out contactservice.der -outform DER
+                /usr/bin/openssl x509 -in contactservice.pem -inform PEM -out contactservice.der -outform DER
 
                 Its common to use keytool to edit Java key stores, but in this
                 case, you will need to use a Java utility to import the
@@ -193,13 +206,13 @@ Securing the Chapter6 Contacts Service:
 
                 Or you can use the version included in:
 
-                $(CODE)/AndroidSecurity/ImportKey.java
+                $CODE/AndroidSecurity/ImportKey.java
 
                 Edit the file to set your keystore password – change the
                 variable, keypass.
 
                 Compile this utility using:
-                javac –d . $(CODE)/AndroidSecurity/ImportKey.java
+                javac –d . $CODE/AndroidSecurity/ImportKey.java
 
                 Run ImportKey to create the keystore and import the private key
                 and contacts certificate, as follows:
@@ -211,7 +224,7 @@ Securing the Chapter6 Contacts Service:
                 keytool -list -v -keystore tomcat_keystore.jks
 
               b. Edit the Tomcat server configuration file, called
-                 $(TOMCAT_HOME)/conf/server.xml, by uncommenting the 8443 ssl
+                 $CATALINA_HOME/conf/server.xml, by uncommenting the 8443 ssl
                  connector to make it active. Edit the fields to match the
                  following code:
 
@@ -222,8 +235,9 @@ Securing the Chapter6 Contacts Service:
 
               c. Enter the password from Step 1,b,2,b of “Creating Your Own
                  Root CA” or the password you used for your commercial
-                 certificate. Change ca_dir to be the directory where your CA
-                 authenticated private key resides.
+                 certificate. Change <ca_dir> to be the directory where your CA
+                 authenticated private key resides; also change <your_password>
+                 to be the keystore password.
 
               d. Restart Tomcat.
 
@@ -232,7 +246,7 @@ Securing the Chapter6 Contacts Service:
 
            APR is significantly easier to configure than JSSE. You can just
            use the certificates you have created by directly configuring them
-           into the Tomcat configuration file, $(TOMCAT)/conf/server.xml, as
+           into the Tomcat configuration file, $CATALINA_HOME/conf/server.xml, as
            follows:
 
            <-- Define a SSL Coyote HTTP/1.1 Connector on port 8443 -->
@@ -244,40 +258,82 @@ Securing the Chapter6 Contacts Service:
                clientAuth="optional" SSLProtocol="TLSv1"
            />
 
+           Replace, <cad_dir> with $CA_DIR.
+
+Once you have edited server.xml, you’ll need to complete one last task: Edit $CODE/
+springServiceContacts/applicationContext-rest.xml and uncomment the following line:
+
+<!--<security:http-basic/>-->
+
+as documented in the file. Then rebuild springServiceContacts and deploy the
+project war to Tomcat. Now that you have a secure backend, it’s time to move
+on to creating a secure connection
+to it from Android.
+
+
 Opening a secure connection on Android
 ----------
 
 1. Enter the hostname from step 1,a,5 into the following field:
 
-$(CODE)/AndroidSecurity/src/com/enterpriseandroid/androidSecurity/SecureConnectionActivity.javaSecureConnectionActivity.SECURE_HOST
+$CODE/AndroidSecurity/src/com/enterpriseandroid/androidSecurity/SecureConnectionActivity.javaSecureConnectionActivity.SECURE_HOST
 
 Set the secure port, likely 443 or 8443, as needed into:
 
-$(CODE)/AndroidSecurity/src/com/enterpriseandroid/androidSecurity/HttpsClientHelper.SECURE_PORT
+$CODE/AndroidSecurity/src/com/enterpriseandroid/androidSecurity/HttpsClientHelper.SECURE_PORT
 
-2. If you used your own CA, you'll need to download the following useful
-graphical tool, called portecle, for this task:
+2. If you created “your own CA,” the following code provides the implementation
+   of the method for avoiding paying for a valid certifi cate. The code loads
+   your own root CA from a trusted keystore stored in a raw file.
 
-http://sourceforge.net/projects/portecle/
+   Note though that the format of the keystore must not be “JKS” as used with
+   Tomcat. It needs to be, “BKS” — for Bouncy Castle Keystore, which is the
+   only format that Android supports. To use your own CA certificates, you will
+   need to import the fi le <cadir>/demoCA/cacert.pem into a BKS keystore.
 
-Unzip the download file and then run portecle using the following command
-line from the unzipped directory:
+   You will need to use a utility to import the converted certifi cate files
+   into the keystore. Download the following useful graphical tool, called
+   Portecle, for this task:
 
-java –jar <unzip_dir>/portecle.jar
+   http://sourceforge.net/projects/portecle/
 
-Import your CA certificate,
+   Unzip the download file and then run portecle using the following command
+   line from the unzipped directory:
 
- <cadir>/demoCA/cacert.pem
+   java –jar <unzip_dir>/portecle.jar
 
-into a new keystore, which should be of type BKS,
-and save it into the following directory with the name listed below:
+   Import your CA certificate,
 
-$(CODE)/AndroidSecurity/res/raw/your_ownca_keystore.bks
+   <cadir>/demoCA/cacert.pem
 
-Run the Android Security Application and choose the Secure connection
-option.
+   into a new keystore, which should be of type BKS, and save it into the
+   following directory with the name listed below:
 
+   $CODE/AndroidSecurity/res/raw/your_ownca_keystore.bks
 
+   If you used a commercially signed CA, you dont need the bks keystore,
+   ignore the previous instructions for using a bks keystore, and comment out
+   the lines to load the BKS keystore.
 
+   KeyStore localRootStore = KeyStore.getInstance("BKS");
+   // Contains your application's root CA and allows use of
+   // certificates that you sign with that CA.
+   InputStream in = resources.openRawResource(R.raw.your_own_ca_keystore);
+   localRootStore.load(in, "changeit".toCharArray());
 
+   Record the password for the keystore. For convenience, you can use the same password you used
+   previously.
 
+3. Make sure to enter the hostname from Step 5 in “Creating a
+   'Certificate Signing Request'" into the following field:
+
+   SecureConnectionActivity.SECURE_HOST
+
+   Additionally, set the password to your BKS keystore in
+
+   HttpsClientHelper.CAPASSWORD
+
+   Then run the SecureConnectionActivity in $CODE/AndroidSecurity project
+   (choose the secure connection option in the UI).
+
+Congratulations, you have invoked a secure request on the chapter 6 client.

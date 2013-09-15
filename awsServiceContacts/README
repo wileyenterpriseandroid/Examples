@@ -247,9 +247,9 @@ against the following local endpoint:
 
 http://localhost:8080/awsServiceContacts/Contacts
 
-Release Note: We apologize for the inconvenience: Although the chapter states
-you can run both chapter 5 clients against the $CODE/awsServiceContacts
-project, in fact, you can only use $CODE/syncAdapterContacts.
+Release Note: Although the chapter states you can run both chapter 5 clients
+against the $CODE/awsServiceContacts project, in fact, you can only use
+$CODE/syncAdapterContacts.
 
 Test your service using the following commands:
 

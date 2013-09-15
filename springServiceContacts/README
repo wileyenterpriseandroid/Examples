@@ -62,7 +62,7 @@ Instructions for running the Spring Service Contacts example using ant:
 
    http://tomcat.apache.org/tomcat-7.0-doc/appdev/installation.html
 
-   Basically, just uncompress the download archive where you want to
+   Basically, just decompress the download archive where you want to
    install Tomcat.
 
    CATALINA_HOME is the directory where you installed Tomcat.
@@ -207,6 +207,16 @@ Perform steps 1-5 of of the Prepare section running the example with ant.
 
 === Clients:
 
+You can install this particular tool in the Chrome browser from Google:
+
+using: https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo/related?hl=en-US
+
+ Once you have installed the extension, you can run it using the following URL:
+
+ chrome-extension://hgmloofddffdnphfgcellkdfbfbjeloo/RestClient.html
+
+===
+
 Run the chapter 5 clients, and curl against the following local endpoint:
 
 http://localhost:8080/springServiceContacts/Contacts
@@ -227,7 +237,7 @@ curl -X GET http://localhost:8080/springServiceContacts/Contacts
 
 
 
-You can install this particular tool in the Chrome browser from Google using: https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo/related?hl=en-US Once you have installed the extension, you can run it using the following URL:  chrome-extension://hgmloofddffdnphfgcellkdfbfbjeloo/RestClient.html
+
 
 
 
