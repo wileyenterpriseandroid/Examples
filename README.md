@@ -41,6 +41,9 @@ git clone https://github.com/wileyenterpriseandroid/migrate-sdk.git
 git clone https://github.com/wileyenterpriseandroid/Examples.git ea-examples
 ```
 
+## The README files contained in every project directory provide the best
+source of instructions for running their associated project.
+
 ## Android Setup
 
 About half of these projects are Android projects.  In order to work with them,
@@ -54,7 +57,7 @@ You will, of course, need a working Java.  All projects were tested with Java 6.
 Most were tested with Java 7 as well.
 
 ## Using Eclipse
-Most projects will build in eclipse.  To create an eclipse project for one of the code directories here,
+Most projects will build in Eclipse.  To create an Eclipse project for one of the code directories here,
 run the following commands, from the command line, while in the subdirectory containing the code:
 ```shell
 cp tools/ide/eclipse/classpath .classpath
@@ -63,6 +66,25 @@ cp tools/ide/eclipse/project .project
 
 This will copy the necessary eclipse configuration into the project directory.  Once you have done that
 you will be able to Import > General > Import Existing Project into Workspace.
+
+The following projects contain a Windows script in their tools directory for
+completing the above task for Eclipse:
+
+KeyValClient
+KeyValCP
+KeyValDB
+MigrateClinic
+MigrateContacts
+restfulCachingProviderContacts
+syncAdapterContacts
+
+The rest of the projects rely on an ant target for setting up eclipse:
+
+ant eclipse
+
+The project README files document this step.
+
+===
 
 Some of the projects require special eclipse extentions (WTP - Web Tools Platform, Ivy, etc.).  See the
 README file in the project for specifics.
