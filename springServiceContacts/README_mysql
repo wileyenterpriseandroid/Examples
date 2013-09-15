@@ -1,0 +1,21 @@
+This file contains tips for readers having problems with mysql:
+
+Mysql on windows:
+
+=== To guarantee installation of the mysql service on windows:
+
+Go to control panel and bring up the user account control section by searching
+for "User Account Control" in the upper right search box, then turn off
+security notifications and reboot your computer.
+
+Then run the following command:
+
+$MYSQL_HOME/bin/mysqld --install
+
+and reboot your computer.
+
+=== To set the mysql root password, execute the instructions on the following
+page:
+
+http://dev.mysql.com/doc/refman/5.0/en/resetting-permissions.html
+

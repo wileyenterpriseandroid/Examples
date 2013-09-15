@@ -1,0 +1,9 @@
+To debug problems with Tomcat, view the contents of the file:
+
+$CATALINA_HOME/logs/catalina.out
+
+or the log file named with the current date.  Aside from simply running the
+'cat' command in a shell, you can also have the contents printed live to a
+console in a shell using the tail command as follows:
+
+tail $CATALINA_HOME/logs/catalina.out
