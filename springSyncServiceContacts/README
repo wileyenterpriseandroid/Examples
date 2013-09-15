@@ -18,7 +18,6 @@ EclipseEE (Kepler), and Tomcat (7.0.12)
  * You are familiar with the code in syncAdapterContacts which
    provides the Android client code for this service.
 
-
 Before getting started:
 
 Note: The CODE variable refers to the location of the Wiley Enterprise Android
@@ -26,7 +25,7 @@ Examples directory. The reader should interpret CODE references as a
 shorthand for this directory. It’s optional for readers to actually set
 this variable in their shell of choice. For example, with Windows cmd,
 you might use %CODE%/<Example>, or in bash you could use $CODE/<Example>
-for example $CODE/springServiceContacts — but only if you set the
+for example $CODE/springSyncServiceContacts — but only if you set the
 variable yourself.
 
 Instructions for running the Spring Service Contacts example using ant:
@@ -35,86 +34,20 @@ Instructions for running the Spring Service Contacts example using ant:
 
 1. Install MySQL Community Server Edition
 
-   The data tier of this example relies on mysql for SQL persistence;
-   consequently, you’ll need to download it after creating an Oracle
-   account:
-
-   http://dev.mysql.com/downloads/mysql/
-
-   Select your platform in the list at the bottom of the page, and then pick
-   an appropriate download, like .msi for Windows or .dmg for MacOS. If you
-   need more detailed instructions, see the following URL:
-
-   http://dev.mysql.com/doc/refman/5.7/en/installing.html
-
-   Note: Make sure to set the root password to be “mysql”, or edit the file
-   $CODE/springContactsService/src/jdbc.properties to use a root password
-   of your choosing. You will also need to use the default mysql port 3306,
-   though you should not need to explicitly configure it.
-
-   If you are installing on MacOS, make sure to get the DMG archive and
-   install it using the setup script. On Windows, execute the .msi file and
-   complete the wizard. If asked during the install, indicate that the
-   service should start on boot.
-
-   Note: If you are having trouble with mysql, see the file, README_mysql
-
+   (See: $CODE/springServiceContacts/README)
 
 2. Install the latest version of the Java JDK on the host that will run the service
-   example. You can download it from the following location:
+   example.
 
-   http://www.oracle.com/technetwork/java/javase/downloads/index.html
+   (See: $CODE/springServiceContacts/README)
 
 3. Install Apache Tomcat.
 
-   The code uses Apache Tomcat as its application server, so you’ll start by downloading
-   Tomcat from the following location:
-
-   http://tomcat.apache.org/download-70.cgi
-
-   And then follow the installation instructions on the Tomcat site:
-
-   http://tomcat.apache.org/tomcat-7.0-doc/appdev/installation.html
-
-   Basically, just uncompress the download archive where you would like
-   Tomcat to reside. Then set the shell variable, CATALINA_HOME to that
-   directory. There’s lots of documentation about Tomcat online:
-
-   http://tomcat.apache.org/tomcat-7.0-doc/index.html
-
-   After you install it, Tomcat is very easy to use. To install an
-   application, you just need to place the application’s war file into
-   $CATALINA_HOME/webapps and then restart Tomcat with:
-
-   $CATALINA_HOME/bin/shutdown.sh
-   $CATALINA_HOME/bin/startup.sh
-
-   On windows, these scripts end with .bat
-
-   Set CATALINA_HOME to the directory where you unpack Tomcat.
-
-   Note: Throughout the chapters on server development, the book will say to
-   “restart Tomcat” as a shorthand for restarting the server if it’s running or
-   starting it if it’s not.
-
-   Of course, if you’ll be using Eclipse, it’s even easier than that — the IDE
-   will deploy your application and handle the installation for you.
+   (See: $CODE/springServiceContacts/README)
 
 4. Install ant.
 
-   The most popular build tool for Java is called ant, and it uses a simple
-   XML format for listing commands that can perform operations required for
-   building a Java project, such as compiling classes, copying files to a
-   directory, or creating a Java archive .jar file. Set the shell variable
-   ANT_HOME to the directory where you unpack ant. Place the directory
-   $ANT_HOME/bin in your System Path environment variable.
-
-   For more information on ant, see:
-
-   http://ant.apache.org
-
-   To install ant, see
-   http://ant.apache.org/manual/install.html
+   (See: $CODE/springServiceContacts/README)
 
 5. Build the project using ant, and setup the database:
 
@@ -122,14 +55,14 @@ Instructions for running the Spring Service Contacts example using ant:
 
    Build the project distribution war archive using:
 
-   cd $CODE/springServiceContacts
+   cd $CODE/springSyncServiceContacts
    ant dist
 
    This command will compile project source files and will download
    required jar dependencies using the ivy dependency manager. The output
    of the command is the file:
 
-   dist/springServiceContacts.war
+   dist/springSyncServiceContacts.war
 
    Setup the database using:
 
@@ -146,7 +79,7 @@ Instructions for running the Spring Service Contacts example using ant:
    Note: If you deploy a war file to a cloud server using these instructions,
    dont forget that you need to run "ant buildb" on the cloud service as well,
    which will require copying the chapter project,
-   springServiceContacts or springSyncServiceContacts to the cloud host.
+   springSyncServiceContacts to the cloud host.
 
 === Deploying Using Ant:
 
@@ -156,7 +89,7 @@ Instructions for running the Spring Service Contacts example using ant:
 
 2. Copy the war file to tomcat:
 
-   $CODE/springServiceContacts/dist/springServiceContacts.war
+   $CODE/springSyncServiceContacts/dist/springSyncServiceContacts.war
 
    to
 
@@ -176,12 +109,14 @@ Perform steps 1-5 of of the Prepare section running the example with ant.
 
    http://www.eclipse.org/downloads/
 
+   Just start Eclipse EE if its already installed.
+
    Warning: Make sure you are using Eclipse Enterprise Edition (standard
    edition is not sufficient for service development). Also make sure that
    the build of Java, 32- or 64-bit, matches that of Eclipse.
 
 2. Run the following commands in a shell:
-   cd $CODE/springservicecontacts
+   cd $CODE/springSyncServiceContacts
    ant eclipse
 
    Like other chapters, this command copies the Eclipse project files from the
@@ -202,7 +137,7 @@ Perform steps 1-5 of of the Prepare section running the example with ant.
 
    b. Click next.
 
-   c. Accept the terms, finish, and restart eclipse
+   c. Accept the terms, finish, and restart Eclipse
 
 4. Import the Eclipse project
 
@@ -210,8 +145,8 @@ Perform steps 1-5 of of the Prepare section running the example with ant.
 
        File -> General -> Import Existing Project.
 
-    b. Click the Browse button, and choose the $CODE/springServiceContacts
-       directory; then check the checkbox to select the springServiceContacts.
+    b. Click the Browse button, and choose the $CODE/springSyncServiceContacts
+       directory; then check the checkbox to select the springSyncServiceContacts.
 
        Click the Finish button.
 
@@ -219,35 +154,7 @@ Perform steps 1-5 of of the Prepare section running the example with ant.
 
 5. Configure Eclipse to use Tomcat:
 
-   Use Window ➪ Preferences ➪ Server (on the left) ➪ Runtime
-   Environments ➪ Server ➪ Runtime Environments.
-
-   Select Add ➪ Apache Tomcat v7.0. Click Next.
-
-   Select the Tomcat Installation directory CATALINA_HOME.
-
-   Browse to the directory where you previously unpacked Tomcat and select
-   it.
-
-   Select a JRE: Make sure to use the previously installed “JDK” Java
-   installation — a JRE is not sufficient. If you don’t see a JDK choice in
-   the JRE drop-down, click the installed JRE’s button.
-
-      a. Click the Add button.
-      b. Select Standard VM ➪ Click Next.
-      c. Click Directory to edit the JRE home.
-      d. Browse and select the directory where you previously installed the Java JDK
-      e. Click Finish.
-
-   If a JRE is selected, unselect it, and select the JDK instead.
-
-   Click OK.
-
-   Back in the Tomcat Server window under the JRE drop-down, if the JDK is not
-   selected, make sure you select it now.
-
-   Click Finish again to complete server configuration.
-   Click OK again to leave preferences.
+   (See: $CODE/springServiceContacts/README)
 
 6. Show the server's view:
 
@@ -259,7 +166,7 @@ Perform steps 1-5 of of the Prepare section running the example with ant.
 
    Leave the variables unchanged.
 
-   Click Next -> Select (springServiceContacts or springSyncServiceContacts).
+   Click Next -> Select springSyncServiceContacts.
 
    Click Add.
 
@@ -267,7 +174,7 @@ Perform steps 1-5 of of the Prepare section running the example with ant.
 
 5. Create a new configuration and run:
 
-   a. Right-click (springServiceContacts or springSyncServiceContacts) in the package
+   a. Right-click springSyncServiceContacts in the package
    explorer.
 
    b. Select Run as -> Run Configurations.
@@ -285,10 +192,10 @@ Perform steps 1-5 of of the Prepare section running the example with ant.
    Note: Windows firewall will/may block the server, so hit "Allow Access" when
    dialog opens.
 
-   Watch the log fi le for errors, and keep in mind that it will take a few
-   minutes for ivy to download dependencies the fi rst time the service runs.
+   Watch the log file for errors, and keep in mind that it will take a few
+   minutes for ivy to download dependencies the first time the service runs.
    To see that each service is running correctly, load the
-   URL http://localhost:8080/springServiceContacts/Contacts in a browser.
+   URL http://localhost:8080/springSyncServiceContacts/Contacts in a browser.
 
    If you see an empty array symbol ( that is, “[ ]”) then it's working.
 
@@ -297,12 +204,12 @@ Perform steps 1-5 of of the Prepare section running the example with ant.
 1. Start a shell for your platform (for example, on windows use cygwin). Then
    build the project:
 
-   cd $CODE/springServiceContacts
+   cd $CODE/springSyncServiceContacts
    ant dist
 
 2. Copy the war file to tomcat, copy:
 
-   $CODE/springServiceContacts/dist/springServiceContacts.war
+   $CODE/springSyncServiceContacts/dist/springSyncServiceContacts.war
 
    to
 
@@ -313,10 +220,10 @@ Perform steps 1-5 of of the Prepare section running the example with ant.
 
 === Clients:
 
-You can run the chapter 5 restfulCachingProviderContacts client against the
+You can run the chapter 5 syncAdapterContacts client against the
 following local endpoint:
 
-http://localhost:8080/springServiceContacts/Contacts
+http://localhost:8080/springSyncServiceContacts/Contacts
 
 And you can run the syncAdapterContacts client against
 
@@ -335,7 +242,7 @@ curl -H "Content-Type: application/json" -X POST -d '{"firstName":"John", "lastN
 
 Get contacts:
 
-curl -X GET http://localhost:8080/springServiceContacts/Contacts
+curl -X GET http://localhost:8080/springSyncServiceContacts/Contacts
 
 or
 
@@ -346,7 +253,7 @@ curl -X GET http://localhost:8080/springSyncServiceContacts/Contacts
 Since you’ve just written a simple web service, it’s possible to drive
 its operation using only a web browser using the endpoint URL:
 
-http://localhost:8080/springServiceContacts/Contacts
+http://localhost:8080/springSyncServiceContacts/Contacts
 
 If the servers are running correctly, when you load this URL, the browser
 will simply show "[]" for an empty array - indicating an empty contacts
