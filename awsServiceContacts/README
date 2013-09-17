@@ -85,7 +85,7 @@ account, and credentials.
     * "ContactUpdateTimeIndex" stores the index for searching on update time.
       This table needs both hash and range keys.
 
-      The range and hash attribute names are, "userId" and "updateTime",
+      The hash and range attribute names are, "userId" and "updateTime",
       respectively. Again, the types of the keys are String.
 
       You may see a message regarding throughput warnings being sent to the

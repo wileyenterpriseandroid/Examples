@@ -13,12 +13,12 @@
 	<context:component-scan base-package="com.enterpriseandroid.awsContacts" />
 	
 	<bean id="contactService" class="com.enterpriseandroid.awsContacts.service.impl.ContactServiceImpl" >
-	   <property name="contactDao" ref="contactDaov2" /> 
+	   <property name="contactDao" ref="contactDaov1" /> 
 	</bean>
 
-	<!-- uncomment the following bean to use dynamodb v1. You also need to comment the contactService above. 
+	<!-- uncomment the following bean to use dynamodb v2. You also need to comment the contactService above. 
 	<bean id="contactService" class="com.enterpriseandroid.awsContacts.service.impl.ContactServiceImpl" >
-	   <property name="contactDaov1" ref="contactDaov1" /> 
+	   <property name="contactDaov1" ref="contactDaov2" /> 
 	</bean>  -->
 		
 	<bean id="marshallingHttpMessageConverter"

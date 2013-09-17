@@ -68,7 +68,7 @@ public class TestClient {
 		HttpEntity<Contact> requestEntity = new  HttpEntity<Contact>(header);
 		ResponseEntity<String> response = restTemplate.exchange(deleteUrl,
 				  HttpMethod.DELETE, requestEntity, String.class);
-		log.error(response.getStatusCode());	
+		log.info(response.getStatusCode());	
 		
 	}
 	
