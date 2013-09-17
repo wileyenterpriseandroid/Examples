@@ -5,7 +5,7 @@
 .settings
 /bin/*
 /gen/*
-build.xml
-lint.xml
-local.properties
-project.properties
+/build.xml
+/lint.xml
+/local.properties
+/project.properties
