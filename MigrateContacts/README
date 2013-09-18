@@ -1,15 +1,14 @@
-This repository contains the code for the Example in chapter 10
-of "Enterprise Android" from Wrox Press.
+This repository contains the code for the Example in chapter 10 of
+"Enterprise Android" from Wrox Press.
 
-This project was tested on an ARM emulator for a Galaxy Nexus device,
-running Android API Level 15, Ice Cream Sandwich, with a gig of memory.
-It should run, as well, on most any device, API Level 14 or greater.
-
-This MigrateContacts application depends on the Migrate project SDK
-and will work only on a device that has an installed Migrate client
-(migrate-client.apk). You must configure the Migrate client to
-communicate with a valid Migrate backend service instance that
-implements the WebData API.
+This project was tested on an ARM emulator for a Galaxy Nexus device, running
+Android API Level 15, Ice Cream Sandwich, with a gig of memory. It should run,
+as well, on most any device, API Level 14 or greater.This MigrateContacts
+application depends on the Migrate project SDK and will work only on a device
+that has an installed Migrate client (migrate-client.apk). You must configure
+the Migrate client to communicate with a valid Migrate backend service instance
+that implements the WebData API - the binary apk in the sdk, connects to a
+local migrate instance and assumes that it runs in the Android emulator.
 
 This README describes the following tasks:
 
@@ -70,10 +69,7 @@ Follow the instructions in migrate.xml.
 There is a copy of a typical migrate.properties file in the tools
 directory (./tools)
 
-- Drag and drop or copy migrate.properties into place:
-
 cd $CODE/MigrateContacts
-cp tools/migrate.properties .
 
 - Drag and drop or copy migrate.xml into place:
 
@@ -114,9 +110,9 @@ $CODE/MigrateContacts/gen/com/enterpriseandroid/migratecontacts/ContactContract.
 
 ant -f migrate.xml postSchema
 
-This command makes the MigrateContacts schema available to the
-migrate service where migrate clients can use it to sync. Schema
-is generated form the class in step 4.
+This command makes the MigrateContacts schema available to the migrate service
+where migrate clients can use it to sync. Schema is generated form the class
+in step 4.
 
 - Test your posted schema, by using curl to retrieve it:
 
@@ -129,16 +125,15 @@ Should return:
 --------------------------------------------------
 7. Install and run the migrate-client.apk from the SDK:
 
-- Run the android emulator, as you've seen in earlier chapters,
-you can run the emulator using the command line with the AVD manager,
-or using Eclipse. Once its running, install the Migrate client APK:
+- Run the android emulator, as you've seen in earlier chapters, you can run
+the emulator using the command line with the AVD manager, or using Eclipse.
+Once its running, install the Migrate client APK:
 
 adb install $MIGRATE_SDK/migrate-client.apk
 
-The binary client in the SDK assumes that the service uses the
-android Emulator host (10.0.2.2), or localhost. Currently, you must
-build the client from source to configure a different backend
-service.
+The binary client in the SDK assumes that the service uses the android
+Emulator host (10.0.2.2), or localhost. Currently, you must build the
+client from source to configure a different backend service.
 
 On success, you will see a Toast that says, "Migrate is up!"
 
@@ -148,15 +143,14 @@ On success, you will see a Toast that says, "Migrate is up!"
 Settings -> Accounts (webdata SyncAdapter) -> Check the sync checkbox.
 
 --------------------------------------------------
-9. Configure MigrateContacts for use with Eclipse, there are a
-few ways to do this:
+9. Configure MigrateContacts for use with Eclipse, there are a few ways to do
+this:
 
-- Import MigrateContacts into Eclipse
-Import -> General...
 == Building with Eclipse
-In order to build this project, using eclipse, you will, first, have to
+In order to build this project, using Eclipse, you will, first, have to
 copy the necessary project files into the project root directory
 The needed file are:
+
 tools/ide/eclipse/project => .project
 tools/ide/eclispe/classpath => .classpath
 tools/project.properties => project.properties
@@ -188,9 +182,9 @@ Once the project has been set up, from eclipse:
 
 Import... >> General >> Existing Projects into Workspace
 
-Note that "Import >> Android >> Existing Android Code into Workspace"
-is something else entirely.  It may work, but if you use it you are
-on your own.
+Note that "Import >> Android >> Existing Android Code into Workspace" is
+something else entirely.  It may work, but if you use it you are on your
+own.
 
 Occasionally, eclipse gets confused about the version of the Java compiler
 to use on a newly imported project.  If you see messages about the compiler
