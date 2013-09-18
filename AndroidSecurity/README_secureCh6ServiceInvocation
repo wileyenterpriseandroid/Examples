@@ -315,6 +315,10 @@ $CODE/AndroidSecurity/src/com/enterpriseandroid/androidSecurity/HttpsClientHelpe
 
    $CODE/AndroidSecurity/res/raw/your_ownca_keystore.bks
 
+   Note: If you are having trouble using portecle to save the keystore
+   because an empty keystore already exists, first delete the default
+   file, then save a new one in its place.
+
    If you used a commercially signed CA, you dont need the bks keystore,
    ignore the previous instructions for using a bks keystore, and comment out
    the lines to load the BKS keystore.
