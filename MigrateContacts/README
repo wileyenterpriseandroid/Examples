@@ -82,6 +82,9 @@ cp $MIGRATE_SDK/migrate.properties .
 
 Likely the defaults will work.
 
+mkdir -p libs
+cp $MIGRATE_SDK/lib/api/migrate-api.jar ./libs
+
 --------------------------------------------------
 4. Compile your schema contract class:
 
