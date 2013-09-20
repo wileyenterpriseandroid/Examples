@@ -60,7 +60,7 @@ of the migrate project:
 
 http://localhost:8080/WebData
 
-The location display information about Migrate.
+This location should display information about Migrate.
 
 --------------------------------------------------
 3. Configure MigrateContacts
@@ -78,7 +78,7 @@ cp $MIGRATE_SDK/migrate.xml .
 
 - Drag and drop or copy migrate.properties into place and edit it for your project.
 
-cp tools/migrate.properties .
+cp $MIGRATE_SDK/migrate.properties .
 
 Likely the defaults will work.
 
