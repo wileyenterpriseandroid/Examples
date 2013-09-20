@@ -15,7 +15,7 @@ projects correspond to chapters according to the table below:
 
 7: awsServiceContacts, googleAppEngineContacts
 
-8: ContactsContract
+8: Contactscontractexample
 
 10: MigrateContacts, MigrateClinic
 
