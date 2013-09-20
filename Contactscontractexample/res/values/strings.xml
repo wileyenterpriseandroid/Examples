@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, ListAndContentActivity!</string>
+    <string name="app_name">Contacts Provider Example App</string>
+    <string name="empty_content">An empty content fragment</string>
+    <string name="item">Item</string>
+    <string name="empty_detail">An empty detail fragment</string>
+    <string name="data">Data</string>
+    <string name="empty_list">Waiting for data</string>
+    <string name="table_info">Table</string>
+    <string name="column_count_label">Number of columns: </string>
+    <string name="row_count_label">Number of rows: </string>
+    <string name="item_bundle_label">item_bundle_label</string>
+    <string name="detail_bundle_label">detail_bundle_label</string>
+    <string name="no_tables">No tables</string>
+    <string name="table_name_label">Table name: </string>
+    <string name="table_uri_label">Table uri: </string>
+    <string name="showtab_label">&quot;shoawtab_label&quot;</string>
+</resources>
