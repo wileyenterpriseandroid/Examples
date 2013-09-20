@@ -15,7 +15,11 @@ projects correspond to chapters according to the table below:
 
 7: awsServiceContacts, googleAppEngineContacts
 
+8: ContactsContract
+
 10: MigrateContacts, MigrateClinic
+
+11: HumanInterfaceForData
 
 12: AndroidSecurity, springServiceContacts
 
