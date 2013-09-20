@@ -45,10 +45,7 @@ $ cd tools
 $ . setup.sh
 
 === Using ant
-Move the file "build.xml" to the root directory and then:
-# on Windows: copy tools\build.xml .
-$ cp tools/build.xml .
-$ ant eclipse
+$ ant -f tools/eclipse.xml
 
 Once the project has been set up, from eclipse:
 

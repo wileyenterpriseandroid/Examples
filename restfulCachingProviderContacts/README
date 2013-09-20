@@ -5,7 +5,7 @@ in chapter 5 of "Enterprise Android" from Wrox Press.
 
 Before starting the project, edit the Java file below:
 
-$(CODE)/restfulCachingProviderContacts/com/enterpriseandroid/restfulcontacts/ContactsApplication.java
+$CODE/restfulCachingProviderContacts/com/enterpriseandroid/restfulcontacts/ContactsApplication.java
 
 and edit the following variables:
 
@@ -65,10 +65,7 @@ $ cd tools
 $ . setup.sh
 
 === Using ant
-Move the file "build.xml" to the root directory and then:
-# on Windows: copy tools\build.xml .
-$ cp tools/build.xml .
-$ ant eclipse
+$ ant -f tools/eclipse.xml
 
 Once the project has been set up, from eclipse:
 

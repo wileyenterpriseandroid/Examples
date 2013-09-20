@@ -3,7 +3,7 @@ provides several discrete examples that demonstrate security techniques
 for the Android platform and its use with backend services.
 
 The code includes an application UI called, AndroidSecurity, that allows you
-to execute each of these examples. Run, "ant eclipse" and then you can
+to execute each of these examples. Run, "ant -f tools/eclipse.xml" and then you can
 open the project folder in Eclipse.
 
 The application will compile and run with no changes, but in order for the
