@@ -10,4 +10,5 @@ lint.xml
 local.properties
 migrate.xml
 /build
+project.properties
 
