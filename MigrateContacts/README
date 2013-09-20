@@ -125,6 +125,10 @@ On success, the code will create the following source file:
 
 $CODE/MigrateContacts/gen/com/enterpriseandroid/migratecontacts/ContactContract.java
 
+Warning: If you do a clean build in Eclipse, it will wipe the files
+in the gen directory, which will mean you will have to manually 
+re-run the generate command above.:
+
 --------------------------------------------------
 6. Post the schema to the migrate service:
 
