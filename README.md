@@ -60,9 +60,11 @@ http://developer.android.com/sdk/index.html
 You will, of course, need a working Java.  All projects were tested with Java 6.
 Most were tested with Java 7 as well.
 
+###
+
 ## Using Eclipse
 Most projects will build in Eclipse.  To create an Eclipse project for one of the code directories here,
-run the following commands, from the command line, while in the subdirectory containing the code:
+run the following commands, from the command line, while in each project root:
 ```shell
 cp tools/ide/eclipse/classpath .classpath
 cp tools/ide/eclipse/project .project
@@ -71,7 +73,7 @@ cp tools/ide/eclipse/project .project
 This will copy the necessary eclipse configuration into the project directory.  Once you have done that
 you will be able to Import > General > Import Existing Project into Workspace.
 
-The following projects contain a Windows script in their tools directory for
+The following Android projects contain a Windows script in their tools directory for
 completing the above task for Eclipse:
 
 KeyValClient
@@ -82,11 +84,29 @@ MigrateContacts
 restfulCachingProviderContacts
 syncAdapterContacts
 
-The rest of the projects rely on an ant target for setting up eclipse:
+# The service projects below:
+
+springServiceContact
+springSyncServiceContacts
+awsServiceContacts
+googleAppEngineContacts
+
+contain an ant build script that support the following command to setup for
+eclipse:
 
 ant eclipse
 
 The project README files document this step.
+
+# Warning: Some chapter descriptions say to copy tools/build.xml to the main
+project directory, and then run ant eclipse. Late in the development of the
+book, we changed this setup somewhat so that you can now run the following
+command:
+
+cd $CODE/<projectRoot>
+ant -f tools/eclipse.xml
+
+Which will then copy the relevant files into place.
 
 ===
 
