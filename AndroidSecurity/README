@@ -2,30 +2,82 @@ This is sample code for Chapter 12 of Wiley's Enterprise Android. This code
 provides several discrete examples that demonstrate security techniques
 for the Android platform and its use with backend services.
 
-The samples include:
-
-Protecting data: uses AES256 to encrypt data in a file.
-
-Protecting passwords: Uses a secure hashing system to protect passwords.
-
-Protecting communication: involves setting up an HTTPS exported version
-of the chapter 6 service, and a then executing a secure invocation to it from
-an Android client that uses basic authentication.
-
-Using Accounts: An example that provides a basic demonstrations of
-how to use the Android Account Manager.
-
-----------
-
 The code includes an application UI called, AndroidSecurity, that allows you
 to execute each of these examples. Run, "ant eclipse" and then you can
 open the project folder in Eclipse.
 
-Right click, Run As Android Application.
+The application will compile and run with no changes, but in order for the
+code to work correctly, you need to edit variables in the code before
+compiling the application.
 
-Note: The example "Protecting Communication" includes an additional set of
-tasks that you must follow before you can use the AndroidSecurity UI
-to run it. You can find these instructions in the chapter text, and in the
-project file:
+Once you have done this run the application in the normal way:
 
-README_secureCh6ServiceInvocation
+    Right click.
+    Run As Android Application.
+
+
+Below you can find descriptions of all chapter examples and how to configure
+them:
+
+
+1. Protecting data:
+    Uses AES256 to encrypt data in a file.
+
+    When this example operates correctly, it will print out the 
+    encrypted form of the sample text to encrypt.
+
+    Warning: This example requires a physical sd card, or an avd with a 
+    virtual sd card in order to work. The purpose of the example is to 
+    demonstrate the need for symmetric encrytpion when storing data
+    on an external card.
+
+2. Protecting passwords:
+    Uses a secure hashing system to protect passwords.
+
+    This example shows a hypothetical login screen. When you click login -
+    its fine to leave the default values, the example will compute and
+    compare a password has and the "log you in." The app will say that you
+    have successfully logged in when it operates correctly.
+
+3. Protecting communication:
+    Involves setting up an HTTPS exported version of the chapter 6 service,
+    and a then executing a secure invocation to it from an Android client
+    that uses basic authentication.
+
+    Note: The example "Protecting Communication" includes an additional set
+    of tasks that you must follow before you can use the AndroidSecurity UI
+    to run it. You can find these instructions in the chapter text, and in
+    the project file:
+
+    README_secureCh6ServiceInvocation
+
+4. Using Accounts:
+    An example that provides a basic demonstration of how to use the Android
+    Account Manager.
+
+    Warning: This example requires that you first install the
+    $CODE/syncAdapterContacts project and configure a SyncContact account,
+    using Settings -> Accounts -> SyncContact
+
+    When the example runs correctly, it will print information about the
+    syncAdapterContacts account.
+
+5. Install Root cert activity:
+    This example shows how to install a root certificated into Android.
+    When you run the example, it will ask for the certificate password,
+    the password for the keystore that ships with the book source,
+    keystore2.p12 is "changeit". You can just type this string into the
+    UI. Once the example accepts the password, it will extract the 
+    certificate.  The system may then ask you to set a pin or screen
+    lock - which you can just enter inline if you need to add one. You
+    will need to name the certificate, once you do the application 
+    should inform you that the certificate it installed.
+
+
+
+    
+
+
+
+
+
