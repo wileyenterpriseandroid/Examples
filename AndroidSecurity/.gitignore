@@ -4,6 +4,6 @@ build
 gen/*
 .project
 .classpath
-local.properties
-project.properties
+/local.properties
+/project.properties
 
