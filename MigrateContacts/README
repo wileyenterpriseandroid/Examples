@@ -109,8 +109,13 @@ build/classes-schema/com/enterpriseandroid/migratecontacts/Contact.class
 --------------------------------------------------
 5. Generate the schema contract:
 
-- This command creates a data API for your Android application using
-the class from the previous step:
+First, make sure the Android generated source directory exists. You 
+might need to:
+
+mkdir gen
+
+- The following command creates a data API for your Android application 
+using the class from the previous step:
 
 ant -f migrate.xml
 
