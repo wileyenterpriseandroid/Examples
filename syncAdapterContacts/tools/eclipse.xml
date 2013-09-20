@@ -1,10 +1,11 @@
 <project default="eclipse">
-  <target name="eclipse"
-      description="setup eclipse project files">
-      <property name="tools.eclipse" value="ide/eclipse"/>
+  <target name="eclipse" description="setup eclipse project files">
+      <property name="ide.eclipse" value="ide/eclipse"/>
       <copy todir=".." >
-           <fileset dir="${tools.eclipse}"/>
+           <fileset dir="${ide.eclipse}"/>
            <mapper type="glob" from="*" to=".*" />
      </copy>
+
+      <copy todir=".." file="project.properties"/>
  </target>
 </project>
