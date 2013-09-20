@@ -5,9 +5,9 @@
 .settings
 /bin/*
 /gen/*
-build.xml
-lint.xml
-local.properties
-project.properties
-migrate.xml
+/build.xml
+/lint.xml
+/local.properties
+/project.properties
+/migrate.xml
 

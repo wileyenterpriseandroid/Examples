@@ -7,8 +7,8 @@
 /gen/*
 build.xml
 lint.xml
-local.properties
-migrate.xml
+/local.properties
+/migrate.xml
 /build
-project.properties
+/project.properties
 
