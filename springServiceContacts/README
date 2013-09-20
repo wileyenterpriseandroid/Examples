@@ -28,6 +28,9 @@ Instructions for running the Spring Service Contacts example using ant:
 
 === Prepare:
 
+Note: If you are using Windows, its a good idea to check out the file
+README_windows and follow the simple instructions it contains.
+
 1. Install MySQL Community Server Edition
 
    The data tier of this example relies on mysql for SQL persistence;
