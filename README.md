@@ -1,7 +1,11 @@
 # Example code for Wiley's "Enterprise Android"
 
-This repository contains a series projects for "Enterprise Android" from Wrox Press.  The 
-projects correspond to chapters according to the table below:
+This repository contains a series projects for "Enterprise Android" from Wrox Press.
+For questions, please visit the wrox forum at:
+
+http://p2p.wrox.com/
+
+The book projects correspond to chapters according to the table below:
 
 1: FragmentFramework
 
