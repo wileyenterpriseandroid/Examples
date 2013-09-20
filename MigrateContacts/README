@@ -78,9 +78,19 @@ cp $MIGRATE_SDK/migrate.xml .
 
 - Drag and drop or copy migrate.properties into place and edit it for your project.
 
-cp $MIGRATE_SDK/migrate.properties .
+cp tools/migrate.properties .
 
-Likely the defaults will work.
+Set the location the migrate sdk in this file as follows:
+
+migrate.sdk.root=$MIGRATE_SDK
+
+
+The actual line might look like the following:
+
+migrate.sdk.root=../../migrate-sdk-beta
+
+
+- Copy the migrate-api.jar into place:
 
 mkdir -p libs
 cp $MIGRATE_SDK/lib/api/migrate-api.jar ./libs
