@@ -1,0 +1,26 @@
+This file contains help for converting UNIX specific project instructions to
+their windows equivalent.
+
+Many chapters in the book rely on the use of the cygwin UNIX system for
+windows, you should follow the instructions for installing that toolchain in chapter 6.
+
+If you plan to execute commands in windows cmd, you will need to replace all '/' 
+characters in directory paths  with '\'
+
+Make sure to use .bat equivalents of scripts, as in the case of
+%CATALINA_HOME%/bin/startup.bat
+
+For many examples, especially chapter 12, you will need to use cygwin - the
+required utilities just dont exist on windows.
+
+Make sure to set the following system environment variables:
+
+JAVA_HOME
+ANT_HOME
+CATALINA_HOME
+
+Place the following directories into the system path variable:
+
+%JAVA_HOME%\bin
+%ANT_HOME%\bin
+%CATALINA_HOME%\bin
