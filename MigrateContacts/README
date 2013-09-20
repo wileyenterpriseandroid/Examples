@@ -174,7 +174,7 @@ copy the necessary project files into the project root directory
 The needed file are:
 
 tools/ide/eclipse/project => .project
-tools/ide/eclispe/classpath => .classpath
+tools/ide/eclipse/classpath => .classpath
 tools/project.properties => project.properties
 
 === From Windows Explorer:
