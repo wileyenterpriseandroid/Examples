@@ -155,7 +155,9 @@ The binary client in the SDK assumes that the service uses the android
 Emulator host (10.0.2.2), or localhost. Currently, you must build the
 client from source to configure a different backend service.
 
-On success, you will see a Toast that says, "Migrate is up!"
+On success, you will see a Toast that says, "Migrate is up!" Next you
+will turn on sync, and then run the MigrateContacts client application
+itself.
 
 --------------------------------------------------
 8. Activate Migrate sync using:
