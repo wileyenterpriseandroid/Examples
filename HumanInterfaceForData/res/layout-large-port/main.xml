@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/content_layout"
+    android:orientation="vertical" >
+
+        <fragment
+            android:id="@+id/list_frag"
+            android:name="com.enterpriseandroidbook.contactscontractexample.PickFragment"
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            class="com.enterpriseandroidbook.contactscontractexample.PickFragment" />
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <fragment
+                android:id="@+id/item_frag"
+                android:name="com.enterpriseandroidbook.contactscontractexample.ItemFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                class="com.enterpriseandroidbook.contactscontractexample.ItemFragment" />
+
+            <fragment
+                android:id="@+id/detail_frag"
+                android:name="com.enterpriseandroidbook.contactscontractexample.ItemDetailFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                class="com.enterpriseandroidbook.contactscontractexample.ItemDetailFragment" />
+        </LinearLayout>
+
+</LinearLayout>
