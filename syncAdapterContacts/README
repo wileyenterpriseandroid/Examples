@@ -1,6 +1,11 @@
 This repository contains the code for the second application
 from chapter 5 of "Enterprise Android" from Wrox Press.
 
+== Missing graphic
+The .png file, in this directory, is a graphic that did not make it
+into to book.  It diagrams an interaction between an application
+and and account service.
+
 == Running the application
 This project was tested on an ARM emulator for a Galaxy Nexus device,
 running Android API Level 15, Ice Cream Sandwich, with a gig of memory.
