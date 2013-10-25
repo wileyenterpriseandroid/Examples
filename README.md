@@ -53,8 +53,7 @@ git clone https://github.com/wileyenterpriseandroid/migrate-sdk.git
 git clone https://github.com/wileyenterpriseandroid/Examples.git ea-examples
 ```
 
-## The README files contained in every project directory provide the best
-source of instructions for running their associated project.
+The README files in each project directory provide the best source of instructions for running their associated project.
 
 ## Android Setup
 
@@ -84,35 +83,38 @@ you will be able to Import > General > Import Existing Project into Workspace.
 The following Android projects contain a Windows script in their tools directory for
 completing the above task for Eclipse:
 
-KeyValClient
-KeyValCP
-KeyValDB
-MigrateClinic
-MigrateContacts
-restfulCachingProviderContacts
-syncAdapterContacts
+    KeyValClient
+    KeyValCP
+    KeyValDB
+    MigrateClinic
+    MigrateContacts
+    restfulCachingProviderContacts
+    syncAdapterContacts
 
-# The service projects below:
+The following service projects contain an ant build script:
 
-springServiceContact
-springSyncServiceContacts
-awsServiceContacts
-googleAppEngineContacts
+    springServiceContact
+    springSyncServiceContacts
+    awsServiceContacts
+    googleAppEngineContacts
 
-contain an ant build script that support the following command to setup for
-eclipse:
+In order to set them up as eclipse projects, use the "eclipse" target, like this:
 
+```shell
 ant eclipse
+```
 
-The project README files document this step.
+The project README files in the projects document this step.
 
-# Warning: Some chapter descriptions say to copy tools/build.xml to the main
+Warning: Some chapter descriptions say to copy tools/build.xml to the main
 project directory, and then run ant eclipse. Late in the development of the
 book, we changed this setup somewhat so that you can now run the following
 command:
 
+```shell
 cd $CODE/<projectRoot>
 ant -f tools/eclipse.xml
+```
 
 Which will then copy the relevant files into place.
 
