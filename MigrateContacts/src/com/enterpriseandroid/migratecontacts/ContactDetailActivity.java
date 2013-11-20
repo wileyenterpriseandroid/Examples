@@ -15,10 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import net.migrate.api.SchemaManager;
 
-
 public class ContactDetailActivity extends Activity
-    implements LoaderManager.LoaderCallbacks<Cursor>,
-    SchemaManager.SchemaLoaderListener
+        implements LoaderManager.LoaderCallbacks<Cursor>,
+        SchemaManager.SchemaLoaderListener
 {
     public static final String KEY_URI = "ContactDetailActivity.CONTACT_URI";
 
@@ -27,11 +26,11 @@ public class ContactDetailActivity extends Activity
     private static final int LOADER_ID = 58;
 
     private static final String[] PROJ = new String[] {
-        ContactContract.Columns._ID,
-        ContactContract.Columns.FIRSTNAME,
-        ContactContract.Columns.LASTNAME,
-        ContactContract.Columns.PHONE_NUMBER,
-        ContactContract.Columns.EMAIL,
+            ContactContract.Columns._ID,
+            ContactContract.Columns.FIRSTNAME,
+            ContactContract.Columns.LASTNAME,
+            ContactContract.Columns.PHONE_NUMBER,
+            ContactContract.Columns.EMAIL,
     };
 
     static class UpdateContact extends AsyncTask<Uri, Void, Void> {
@@ -74,7 +73,9 @@ public class ContactDetailActivity extends Activity
     private String phone = "";
     private TextView emailView;
     private String email = "";
+
     private Uri contactUri;
+
     private Button updateButton;
     private Button deleteButton;
 
@@ -82,9 +83,9 @@ public class ContactDetailActivity extends Activity
     public void onSchemaLoaded(String schema, boolean succeeded) {
         if (!succeeded) {
             Log.w(
-                TAG,
-                "Failed to initialize schema: " + ContactContract.SCHEMA_ID
-                    + " @ " + ContactContract.SCHEMA_CONTACT_URI);
+                    TAG,
+                    "Failed to initialize schema: " + ContactContract.SCHEMA_ID
+                            + " @ " + ContactContract.SCHEMA_CONTACT_URI);
 
             // add failure handling code
 
@@ -94,7 +95,9 @@ public class ContactDetailActivity extends Activity
         updateButton.setEnabled(true);
         deleteButton.setEnabled(true);
 
-        if (null != contactUri) { getLoaderManager().initLoader(LOADER_ID, null, this); }
+        if (null != contactUri) {
+            getLoaderManager().initLoader(LOADER_ID, null, this);
+        }
     }
 
     @Override
@@ -125,7 +128,7 @@ public class ContactDetailActivity extends Activity
             contactUri = Uri.parse(uri);
         }
 
-        setContentView(R.layout.activity_contact_details);
+        setContentView(R.layout.activity_contact_detail);
 
         fnameView = (TextView) findViewById(R.id.activity_detail_fname);
         lnameView = (TextView) findViewById(R.id.activity_detail_lname);
@@ -134,24 +137,24 @@ public class ContactDetailActivity extends Activity
 
         updateButton = ((Button) findViewById(R.id.activity_detail_update));
         updateButton.setOnClickListener(
-            new View.OnClickListener() {
-                @Override public void onClick(View v) { update(); }
-            });
+                new View.OnClickListener() {
+                    @Override public void onClick(View v) { update(); }
+                });
         updateButton.setEnabled(false);
 
         deleteButton = ((Button) findViewById(R.id.activity_detail_delete));
         deleteButton.setOnClickListener(
-            new View.OnClickListener() {
-                @Override public void onClick(View v) { delete( ); }
-            });
+                new View.OnClickListener() {
+                    @Override public void onClick(View v) { delete( ); }
+                });
         deleteButton.setEnabled(false);
 
         new SchemaManager(
-            this,
-            ContactContract.SCHEMA_ID,
-            ((ContactsApplication) getApplication()).getUser(),
-            this)
-        .initSchema();
+                this,
+                ContactContract.SCHEMA_ID,
+                ((ContactsApplication) getApplication()).getUser(),
+                this)
+                .initSchema();
     }
 
     @Override
@@ -171,10 +174,10 @@ public class ContactDetailActivity extends Activity
     void update() {
         if (TextUtils.isEmpty(fnameView.getText().toString())) {
             Toast.makeText(
-                this,
-                R.string.name_required,
-                Toast.LENGTH_SHORT)
-                .show();
+                    this,
+                    R.string.name_required,
+                    Toast.LENGTH_SHORT)
+                    .show();
             return;
         }
 
@@ -218,10 +221,10 @@ public class ContactDetailActivity extends Activity
     }
 
     private void addString(
-        TextView view,
-        String oldVal,
-        ContentValues vals,
-        String col)
+            TextView view,
+            String oldVal,
+            ContentValues vals,
+            String col)
     {
         String s = view.getText().toString();
         if (!oldVal.equals(s)) { vals.put(col, s); }

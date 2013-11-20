@@ -27,5 +27,10 @@
     <string name="prefs_heading">User</string>
     <string name="prefs_user_key">MigrateContacts.USER</string>
     <string name="prefs_user_title">Contacts user ID</string>
-    
+
+    <string name="resolve_title">Resolve Conflicts</string>
+    <string name="resolve_conflict">Resolve contact conflict</string>
+    <string name="activity_resolve">Resolve Contact</string>
+    <string name="resolve_update">Detail resolve</string>
+
 </resources>

@@ -26,6 +26,9 @@
             android:name=".ContactDetailActivity"
             android:label="@string/activity_details" />
         <activity
+                android:name=".ResolveContactActivity"
+                android:label="@string/activity_resolve" />
+        <activity
             android:name=".PrefsActivity"
             android:label="@string/activity_prefs" />
     </application>

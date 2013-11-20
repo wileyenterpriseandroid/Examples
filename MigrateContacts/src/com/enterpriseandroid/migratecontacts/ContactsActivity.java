@@ -1,58 +1,59 @@
 package com.enterpriseandroid.migratecontacts;
 
 import android.app.LoaderManager;
-import android.content.CursorLoader;
-import android.content.Intent;
-import android.content.Loader;
+import android.content.*;
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
+import android.widget.*;
 import net.migrate.api.SchemaManager;
-
+import net.migrate.api.WebData;
 
 public class ContactsActivity extends BaseActivity
-    implements LoaderManager.LoaderCallbacks<Cursor>,
-    SchemaManager.SchemaLoaderListener
+        implements LoaderManager.LoaderCallbacks<Cursor>,
+        SchemaManager.SchemaLoaderListener
 {
     private static final String TAG = "CONTACTS";
 
     private static final int CONTACTS_LOADER_ID = 42;
 
     private static final String[] PROJ = new String[] {
-        ContactContract.Columns._ID,
-        ContactContract.Columns.FIRSTNAME,
-        ContactContract.Columns.LASTNAME,
-        ContactContract.Columns.PHONE_NUMBER,
-        ContactContract.Columns.EMAIL,
+            ContactContract.Columns._ID,
+            WebData.Object.WD_DATA_ID,
+            WebData.Object.WD_IN_CONFLICT,
+            ContactContract.Columns.FIRSTNAME,
+            ContactContract.Columns.LASTNAME,
+            ContactContract.Columns.PHONE_NUMBER,
+            ContactContract.Columns.EMAIL,
     };
 
-    private static final String[] FROM = new String[PROJ.length - 1];
+    private static final String[] FROM = new String[PROJ.length - 2];
 
     static {
-        System.arraycopy(PROJ, 1, FROM, 0, FROM.length);
+        System.arraycopy(PROJ, 2, FROM, 0, FROM.length);
     }
 
     private static final int[] TO = new int[] {
-        R.id.row_contacts_fname,
-        R.id.row_contacts_lname,
-        R.id.row_contacts_phone,
-        R.id.row_contacts_email,
+            R.id.row_contacts_fname,
+            R.id.row_contacts_lname,
+            R.id.row_contacts_phone,
+            R.id.row_contacts_email,
     };
 
     private SimpleCursorAdapter listAdapter;
 
+    private Button resolveButton;
+
     @Override
     public void onSchemaLoaded(String schema, boolean succeeded) {
         if (!succeeded) {
-            Log.w(
-                TAG,
-                "Failed to initialize schema: " + ContactContract.SCHEMA_ID
-                    + " @ " + ContactContract.SCHEMA_CONTACT_URI);
+            Log.w(TAG,
+                    "Failed to initialize schema: " + ContactContract.SCHEMA_ID
+                            + " @ " + ContactContract.SCHEMA_CONTACT_URI);
 
             // add failure handling code
 
@@ -60,18 +61,33 @@ public class ContactsActivity extends BaseActivity
         }
 
         getLoaderManager().initLoader(CONTACTS_LOADER_ID, null, this);
+
+        ContentObserver conflictObserver = new ContentObserver(new Handler()) {
+            @Override
+            public void onChange(boolean selfChange) {
+                super.onChange(selfChange);
+            }
+
+            @Override
+            public void onChange(boolean selfChange, Uri uri) {
+                super.onChange(selfChange, uri);
+            }
+        };
+
+        getContentResolver().registerContentObserver(WebData.Object.CONFLICT_CONTENT_URI,
+                false, conflictObserver);
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Log.d(TAG, "Creating content loader: " + ContactContract.OBJECT_CONTACT_URI);
         return new CursorLoader(
-            this,
-            ContactContract.OBJECT_CONTACT_URI,
-            PROJ,
-            null,
-            null,
-            ContactContract.Columns.FIRSTNAME + " ASC");
+                this,
+                ContactContract.OBJECT_CONTACT_URI,
+                PROJ,
+                null,
+                null,
+                ContactContract.Columns.FIRSTNAME + " ASC");
     }
 
     @Override
@@ -87,6 +103,38 @@ public class ContactsActivity extends BaseActivity
         listAdapter.swapCursor(null);
     }
 
+    private class ContactRowAdapter extends SimpleCursorAdapter {
+        private ContactRowAdapter(Context context, int layout,
+                                  Cursor c, String[] from, int[] to, int flags)
+        {
+            super(context, layout, c, from, to, flags);
+        }
+
+        @Override
+        public void bindView(View view, Context context, final Cursor cursor) {
+            ImageButton resolveButton = (ImageButton)
+                    view.findViewById(R.id.row_contacts_resolve_button);
+
+            resolveButton.setOnClickListener(
+                    new View.OnClickListener() {
+                        @Override public void onClick(View v) {
+//                            int cid = cursor.getColumnIndex(ContactContract.Columns._ID);
+                            int cid = 1;
+                            ContactsActivity.this.resolveConflict(cid);
+                        }
+                    });
+
+            boolean inConflict = WebData.Object.inConflict(cursor);
+            if (inConflict) {
+                resolveButton.setVisibility(View.VISIBLE);
+            } else {
+                resolveButton.setVisibility(View.GONE);
+            }
+
+            super.bindView(view, context, cursor);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,16 +148,16 @@ public class ContactsActivity extends BaseActivity
                     }
                 });
 
-        listAdapter = new SimpleCursorAdapter(
-            this,
-            R.layout.contact_row,
-            null,
-            FROM,
-            TO,
-            0);
+        listAdapter = new ContactRowAdapter(
+                this,
+                R.layout.contact_row,
+                null,
+                FROM,
+                TO,
+                0);
 
         ListView listView
-            = ((ListView) findViewById(R.id.activity_contacts_list));
+                = ((ListView) findViewById(R.id.activity_contacts_list));
         listView.setAdapter(listAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -120,19 +168,49 @@ public class ContactsActivity extends BaseActivity
         });
 
         new SchemaManager(
-            this,
-            ContactContract.SCHEMA_ID,
-            ((ContactsApplication) getApplication()).getUser(),
-            this)
-        .initSchema();
+                this,
+                ContactContract.SCHEMA_ID,
+                ((ContactsApplication) getApplication()).getUser(),
+                this)
+                .initSchema();
+    }
+
+    void resolveConflict(int pos) {
+        if (BuildConfig.DEBUG) {
+            Log.d(TAG, "resolve conflicts");
+        }
+
+        Cursor c = (Cursor) listAdapter.getItem(pos);
+
+        int idi = c.getColumnIndex(WebData.Object.WD_DATA_ID);
+        String dataID = c.getString(idi);
+        resolveConflict(dataID);
+    }
+
+    void resolveConflict(String uuid) {
+        if (BuildConfig.DEBUG) {
+            Log.d(TAG, "resolve conflict");
+        }
+
+        Intent intent = new Intent();
+        intent.setClass(this, ResolveContactActivity.class);
+
+        Uri dataUri = WebData.Object.objectUri(ContactContract.SCHEMA_ID)
+                .buildUpon().appendPath(uuid).build();
+
+        if (null != dataUri) {
+            intent.putExtra(ResolveContactActivity.OBJECT_KEY_URI, dataUri.toString());
+        }
+
+        startActivity(intent);
     }
 
     void showDetails(int pos) {
         Cursor c = (Cursor) listAdapter.getItem(pos);
         showDetails(ContactContract.OBJECT_CONTACT_URI.buildUpon()
-            .appendPath(c.getString(
-                    c.getColumnIndex(ContactContract.Columns._ID)))
-            .build());
+                .appendPath(c.getString(
+                        c.getColumnIndex(ContactContract.Columns._ID)))
+                .build());
     }
 
     void showDetails(Uri uri) {

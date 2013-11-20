@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-
 @SuppressLint("Registered")
 public class BaseActivity extends Activity {
     private static final String TAG = "BASE";
