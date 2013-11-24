@@ -21,7 +21,7 @@ public class ContactsActivity extends BaseActivity
 
     private static final int CONTACTS_LOADER_ID = 42;
 
-    private static final String[] PROJ = new String[] {
+    public static final String[] PROJ = new String[] {
             ContactContract.Columns._ID,
             WebData.Object.WD_DATA_ID,
             WebData.Object.WD_IN_CONFLICT,
@@ -45,8 +45,6 @@ public class ContactsActivity extends BaseActivity
     };
 
     private SimpleCursorAdapter listAdapter;
-
-    private Button resolveButton;
 
     @Override
     public void onSchemaLoaded(String schema, boolean succeeded) {
@@ -112,23 +110,10 @@ public class ContactsActivity extends BaseActivity
 
         @Override
         public void bindView(View view, Context context, final Cursor cursor) {
-            ImageButton resolveButton = (ImageButton)
-                    view.findViewById(R.id.row_contacts_resolve_button);
-
-            resolveButton.setOnClickListener(
-                    new View.OnClickListener() {
-                        @Override public void onClick(View v) {
-//                            int cid = cursor.getColumnIndex(ContactContract.Columns._ID);
-                            int cid = 1;
-                            ContactsActivity.this.resolveConflict(cid);
-                        }
-                    });
-
             boolean inConflict = WebData.Object.inConflict(cursor);
+
             if (inConflict) {
-                resolveButton.setVisibility(View.VISIBLE);
-            } else {
-                resolveButton.setVisibility(View.GONE);
+                view.setBackgroundResource(R.color.conflicted);
             }
 
             super.bindView(view, context, cursor);
@@ -163,7 +148,11 @@ public class ContactsActivity extends BaseActivity
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> l, View v, int p, long id) {
-                showDetails(p);
+                if (WebData.Object.inConflict(listAdapter.getCursor())) {
+                    resolveConflict(p);
+                } else {
+                    showDetails(p);
+                }
             }
         });
 
@@ -182,8 +171,8 @@ public class ContactsActivity extends BaseActivity
 
         Cursor c = (Cursor) listAdapter.getItem(pos);
 
-        int idi = c.getColumnIndex(WebData.Object.WD_DATA_ID);
-        String dataID = c.getString(idi);
+        int di = c.getColumnIndex(WebData.Object.WD_DATA_ID);
+        String dataID = c.getString(di);
         resolveConflict(dataID);
     }
 

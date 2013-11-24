@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="conflict_size">30dp</dimen>
+    <dimen name="conflict_font_size">16sp</dimen>
 </resources>

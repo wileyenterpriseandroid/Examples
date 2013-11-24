@@ -45,12 +45,4 @@
             android:paddingTop="6dp"
             android:textIsSelectable="false" />
 
-    <ImageButton
-            android:id="@+id/row_contacts_resolve_button"
-            android:src="@drawable/conflict"
-            android:layout_width="@dimen/conflict_size"
-            android:layout_height="@dimen/conflict_size"
-            android:layout_centerInParent="true"
-            android:contentDescription="@string/resolve_conflict"
-            />
 </RelativeLayout>

@@ -29,8 +29,10 @@
     <string name="prefs_user_title">Contacts user ID</string>
 
     <string name="resolve_title">Resolve Conflicts</string>
-    <string name="resolve_conflict">Resolve contact conflict</string>
+    <string name="resolve_conflict">Resolve</string>
     <string name="activity_resolve">Resolve Contact</string>
-    <string name="resolve_update">Detail resolve</string>
+    <string name="resolve_field_header">Field</string>
+    <string name="resolve_field_resolve">Resolved</string>
+    <string name="activity_resolve_need_all_fields">You must resolve all fields.</string>
 
 </resources>
