@@ -31,10 +31,10 @@ public class ContactsActivity extends BaseActivity
             ContactContract.Columns.EMAIL,
     };
 
-    private static final String[] FROM = new String[PROJ.length - 2];
+    private static final String[] FROM = new String[PROJ.length - 3];
 
     static {
-        System.arraycopy(PROJ, 2, FROM, 0, FROM.length);
+        System.arraycopy(PROJ, 3, FROM, 0, FROM.length);
     }
 
     private static final int[] TO = new int[] {

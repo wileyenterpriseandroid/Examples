@@ -171,6 +171,7 @@ public class ResolveContactActivity extends Activity {
         @Override
         protected Object doInBackground(Object... params) {
             getContentResolver().update(conflictDataUri, resolvedValues, null, null);
+            ResolveContactActivity.this.finish();
             return null;
         }
     }
