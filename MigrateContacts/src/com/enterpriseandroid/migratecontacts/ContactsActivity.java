@@ -59,21 +59,6 @@ public class ContactsActivity extends BaseActivity
         }
 
         getLoaderManager().initLoader(CONTACTS_LOADER_ID, null, this);
-
-        ContentObserver conflictObserver = new ContentObserver(new Handler()) {
-            @Override
-            public void onChange(boolean selfChange) {
-                super.onChange(selfChange);
-            }
-
-            @Override
-            public void onChange(boolean selfChange, Uri uri) {
-                super.onChange(selfChange, uri);
-            }
-        };
-
-        getContentResolver().registerContentObserver(WebData.Object.CONFLICT_CONTENT_URI,
-                false, conflictObserver);
     }
 
     @Override
