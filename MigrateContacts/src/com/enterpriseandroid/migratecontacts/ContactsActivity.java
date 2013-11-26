@@ -99,6 +99,8 @@ public class ContactsActivity extends BaseActivity
 
             if (inConflict) {
                 view.setBackgroundResource(R.color.conflicted);
+            } else {
+                view.setBackgroundResource(android.R.color.black);
             }
 
             super.bindView(view, context, cursor);
