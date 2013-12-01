@@ -151,10 +151,10 @@ public class ResolveContactActivity extends Activity {
         ContentValues resolvedValues = new ContentValues();
 
         resolvedValues.put(WebData.Object.WD_VERSION, conflictVersion);
-        resolvedValues.put(ContactContract.Columns.FIRSTNAME, fname);
-        resolvedValues.put(ContactContract.Columns.LASTNAME, lname);
-        resolvedValues.put(ContactContract.Columns.PHONE_NUMBER, phone);
-        resolvedValues.put(ContactContract.Columns.EMAIL, email);
+        resolvedValues.put(ContactContract.Columns.FIRSTNAME, resolvedFname);
+        resolvedValues.put(ContactContract.Columns.LASTNAME, resolvedLname);
+        resolvedValues.put(ContactContract.Columns.PHONE_NUMBER, resolvedPhone);
+        resolvedValues.put(ContactContract.Columns.EMAIL, resolvedEmail);
 
         ResolveConflictTask resolveTask = new ResolveConflictTask(resolvedValues);
         resolveTask.doInBackground();
@@ -180,10 +180,10 @@ public class ResolveContactActivity extends Activity {
     {
         @Override
         public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-            Log.d(TAG, "Loader for conflict data: " + contactUri);
+            Log.d(TAG, "Loader for conflict data: " + contactDataUri);
             return new CursorLoader(
                     ResolveContactActivity.this,
-                    contactUri,
+                    contactDataUri,
                     OBJ_PROJ,
                     null,
                     null,
