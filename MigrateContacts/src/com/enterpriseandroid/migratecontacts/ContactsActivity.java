@@ -2,11 +2,9 @@ package com.enterpriseandroid.migratecontacts;
 
 import android.app.LoaderManager;
 import android.content.*;
-import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
@@ -175,7 +173,7 @@ public class ContactsActivity extends BaseActivity
                 .buildUpon().appendPath(uuid).build();
 
         if (null != dataUri) {
-            intent.putExtra(ResolveContactActivity.OBJECT_KEY_URI, dataUri.toString());
+            intent.putExtra(ResolveContactActivity.CONTACT_KEY_URI, dataUri.toString());
         }
 
         startActivity(intent);

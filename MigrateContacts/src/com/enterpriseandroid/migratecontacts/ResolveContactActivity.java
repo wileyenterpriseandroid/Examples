@@ -18,12 +18,11 @@ import net.migrate.api.WebData;
 public class ResolveContactActivity extends Activity {
     private static final String TAG = "";
 
-    public static final String OBJECT_KEY_URI = "object_uri";
+    public static final String CONTACT_KEY_URI = "contact_uri";
 
-    private Uri contactUri;
     private Uri conflictUri;
-    private Uri conflictDataUri;
     private Uri contactDataUri;
+    private Uri conflictDataUri;
 
     private String fname;
     private String conflictFname;
@@ -57,10 +56,9 @@ public class ResolveContactActivity extends Activity {
 
     private String dataId;
 
-    private int contactVersion;
     private int conflictVersion;
 
-    public static final String[] OBJ_PROJ = new String[] {
+    public static final String[] CONTACT_PROJECTION = new String[] {
             ContactContract.Columns._ID,
             WebData.Object.WD_DATA_ID,
             WebData.Object.WD_IN_CONFLICT,
@@ -101,12 +99,12 @@ public class ResolveContactActivity extends Activity {
 
         String uri = null;
         if (null != state) {
-            uri = state.getString(OBJECT_KEY_URI);
+            uri = state.getString(CONTACT_KEY_URI);
         }
 
         if (null != uri) {
-            contactUri = Uri.parse(uri);
-            String schemaId = WebData.Schema.getSchemaId(contactUri);
+            contactDataUri = Uri.parse(uri);
+            String schemaId = WebData.Schema.getSchemaId(contactDataUri);
             conflictUri = WebData.Object.conflictUri(schemaId);
         }
 
@@ -150,6 +148,11 @@ public class ResolveContactActivity extends Activity {
     private void resolveConflict() {
         ContentValues resolvedValues = new ContentValues();
 
+        resolvedFname = (resolvedFname == null ? (String) conflictFnameSpinner.getSelectedItem() : resolvedFname);
+        resolvedLname = (resolvedLname == null ? (String) conflictLnameSpinner.getSelectedItem() : resolvedLname);
+        resolvedPhone = (resolvedPhone == null ? (String) conflictPhoneSpinner.getSelectedItem() : resolvedPhone);
+        resolvedEmail = (resolvedEmail == null ? (String) conflictEmailSpinner.getSelectedItem() : resolvedEmail);
+
         resolvedValues.put(WebData.Object.WD_VERSION, conflictVersion);
         resolvedValues.put(ContactContract.Columns.FIRSTNAME, resolvedFname);
         resolvedValues.put(ContactContract.Columns.LASTNAME, resolvedLname);
@@ -184,7 +187,7 @@ public class ResolveContactActivity extends Activity {
             return new CursorLoader(
                     ResolveContactActivity.this,
                     contactDataUri,
-                    OBJ_PROJ,
+                    CONTACT_PROJECTION,
                     null,
                     null,
                     null);
@@ -213,11 +216,7 @@ public class ResolveContactActivity extends Activity {
         s = getString(c, WebData.Object.WD_DATA_ID);
         dataId = (TextUtils.isEmpty(s)) ? "" : s;
 
-        contactDataUri = contactUri.buildUpon().appendPath(dataId).build();
         conflictDataUri = conflictUri.buildUpon().appendPath(dataId).build();
-
-        s = getString(c, WebData.Object.WD_VERSION);
-        contactVersion = Integer.parseInt((TextUtils.isEmpty(s)) ? "" : s);
 
         s = getString(c, ContactContract.Columns.FIRSTNAME);
         fname = (TextUtils.isEmpty(s)) ? "" : s;
@@ -308,6 +307,8 @@ public class ResolveContactActivity extends Activity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // spinner seems to acquire color of selected - instead want color of resolved
                 setSpinnerColor(spinner, conflictCheckBox);
+
+
             }
 
             @Override
