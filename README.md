@@ -3,7 +3,7 @@
 This repository contains a series projects for "Enterprise Android" from Wrox Press.
 For questions, please visit the wrox forum at:
 
-http://p2p.wrox.com/
+http://p2p.wrox.com/book-enterprise-android-programming-android-database-applications-enterprise-751/
 
 The book projects correspond to chapters according to the table below:
 
