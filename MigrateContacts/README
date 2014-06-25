@@ -12,7 +12,7 @@ local migrate instance and assumes that it runs in the Android emulator.
 
 This README describes the following tasks:
 
-- Setting up a local Migrate service instance.
+- Setting up an OPTIONAL local Migrate service instance.
 - Running the Migrate Proxy (migrate-client.apk).
 - Configuring the MigrateContacts project.
 - Creating and posting contact schema.
@@ -28,7 +28,7 @@ https://github.com/wileyenterpriseandroid/migrate/wiki
 
 Click the link that says, "Download the Migrate SDK" 
 
-Instructions refer to the unpacked directory as $MIGRATE_SDK.
+Instructions refer to the unpacked archive directory as $MIGRATE_SDK.
 
 The SDK contains the following items:
 
@@ -38,7 +38,27 @@ The SDK contains the following items:
 
 
 --------------------------------------------------
-2. Run the migrate service using Tomcat:
+2. Optionally run the migrate service using Tomcat:
+
+NOTE: If you dont plan to use the default migrate backend instance
+located at beta.wroxenterpriseandroid.net, then you
+will need to run your own migrate instance as listed below.
+
+The binary SDK is configured to use this endpoint by default.
+If you want to use your own endpoint, you will need to configure
+if when you add the migrate sync adapter in Android settings.
+
+NOTE: You can create an account when you configure the migrate
+sync adapter, or you can create one (and log on) at:
+beta.wroxenterpriseandroid.net
+
+If you do not plan to use the default instance, then you can
+skip the rest of step 2.
+
+-----
+
+Follow the instructions below only if you want to setup your own
+local migrate instance (advanced and optional):
 
 Make sure that you have a mysql instance running with root
 credentials as:
@@ -155,9 +175,9 @@ Once its running, install the Migrate client APK:
 
 adb install $MIGRATE_SDK/migrate-client.apk
 
-The binary client in the SDK assumes that the service uses the android
-Emulator host (10.0.2.2), or localhost. Currently, you must build the
-client from source to configure a different backend service.
+The binary client in the SDK assumes that the service uses the beta instance,
+http://beta.wroxenterpriseandroid.net/ . If you run your own instance, you
+will need to use the android Emulator host (10.0.2.2), or localhost.
 
 On success, you will see a Toast that says, "Migrate is up!" Next you
 will turn on sync, and then run the MigrateContacts client application
