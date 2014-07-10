@@ -77,7 +77,7 @@ https://appengine.google.com/
    1 <?xml version="1.0" encoding="utf-8"?>
    2 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
    3 <application>Add_your_application_id_here</application>
-   4 <version>1</version
+   4 <version>1</version>
 
 6. Create an Application-Specific Password
 
