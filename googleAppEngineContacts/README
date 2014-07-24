@@ -1,3 +1,4 @@
+
 This is sample code for Chapter 7 of Wiley's Enterprise Android. The sample
 creates a RESTful Contacts service with backend persistence support from
 Google App Engine. This service provides an operational backend
@@ -83,17 +84,30 @@ https://appengine.google.com/
 
    You won’t be able to deploy updates to your app engine service using your
    normal account password; instead you must create an application-specific
-   password from the following location:
+   password using the following instructions:
 
-   https://accounts.google.com/IssuedAuthSubTokens?hide_authsub=1#acccess_codes
+   * Enable two step verification on your account (if not done already):
 
-   Application-specific passwords require you to have two-step verification
-   in place, so if you don’t have it on your Google account, you’ll have
-   to turn it on and authorize your computer before completing the process.
-   Be sure to have a phone or a device on which you can receive text messages
-   available. The included link provides a YouTube tutorial on this process.
-   When invoking update requests from ant or in eclipse, use the following
-   credentials:
+   Two step verification: Application-specific passwords require you to
+   have two-step verification in place, so if you don’t have it on your
+   Google account, you’ll have to turn it on and authorize your computer
+   before completing the process.  Be sure to have a phone or a device on
+   which you can receive text messages available. The included link
+   provides a YouTube tutorial on this process.  When invoking update
+   requests from ant or in eclipse, use the following credentials:
+
+   https://www.google.com/settings/security
+
+   "2 Step Verification" -> Settings; Enable two step verification - you'll 
+   need a mobile phone for this step.
+
+   * Enable less secure apps at the previous link using:
+
+   * Select settings under "Less secure apps", then select "Enable"
+
+   Then visit the following link to add an application password:
+
+   * https://accounts.google.com/IssuedAuthSubTokens?hide_authsub=1#acccess_codes
 
    * E-mail address—Your account e-mail address
    * Password—An application-specific password
