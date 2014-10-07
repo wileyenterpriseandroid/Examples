@@ -28,7 +28,7 @@
             android:name="com.enterpriseandroidbook.fragmentframework.ItemDetailFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            class="com.finchframework.uiframework.ItemDetailFragment" />
+            class="com.enterpriseandroidbook.fragmentframework.ItemDetailFragment" />
     </LinearLayout>
 
 </LinearLayout>
