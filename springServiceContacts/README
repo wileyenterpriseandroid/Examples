@@ -31,7 +31,7 @@ Instructions for running the Spring Service Contacts example using ant:
 Note: If you are using Windows, its a good idea to check out the file
 README_windows and follow the simple instructions it contains.
 
-1. Install MySQL Community Server Edition
+1. Install MySQL Community Server Edition (Version 5.7)
 
    The data tier of this example relies on mysql for SQL persistence;
    consequently, you’ll need to download it after creating an Oracle
@@ -45,17 +45,32 @@ README_windows and follow the simple instructions it contains.
 
    http://dev.mysql.com/doc/refman/5.7/en/installing.html
 
+   The site asks you to log in, but you can just click the link, 
+   "No thanks, just start my download" for convenience.
+
    Note: Make sure to set the root password to be “mysql”, or edit the file
    $CODE/springContactsService/src/jdbc.properties to use a root password
    of your choosing. You will also need to use the default mysql port 3306,
-   though you should not need to explicitly configure it.
+   though you should not need to explicitly configure it. The following
+   link may be helpful for setting the root password:
+
+   http://stackoverflow.com/questions/6474775/setting-the-mysql-root-user-password-on-osx
 
    If you are installing on MacOS, make sure to get the DMG archive and
    install it using the setup script. On Windows, execute the .msi file and
    complete the wizard. If asked during the install, indicate that the
-   service should start on boot.
+   service should start on boot. Make sure to run the executable, 
+   "MySQLStartupItem.pkg" and "MySQL.prefPane". Make sure to use the new
+   preferences pane to start the mysql server.
+
+   Also note that you must install MySQL version 5.7 - on a mac this means
+   you need to click the development tab and download 5.7 from that area.
 
    Note: If you are having trouble with mysql, see the file, README_mysql
+
+1.1.
+
+   Once you have mysql running with the correct password, 		
 
 2. Install the latest version of the Java JDK on the host that will run the service
    example. You can download it from the following location:
