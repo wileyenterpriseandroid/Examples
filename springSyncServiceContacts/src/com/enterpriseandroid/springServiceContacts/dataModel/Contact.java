@@ -18,7 +18,6 @@ import org.hibernate.annotations.Index;
 public class Contact implements Serializable {
 	private static final long serialVersionUID = 5322847412825669350L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
 	@Basic
 	@Column(nullable=false)

@@ -14,12 +14,22 @@
      		http://www.springframework.org/schema/tx/spring-tx-3.1.xsd"
 	        >
 
+	 <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+            </list>
+        </property>
+    </bean>
+		
+			
    <!-- the DataSource (parameterized for configuration via a PropertyPlaceHolderConfigurer) -->
     <bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/springsynccontact"/>
-        <property name="username" value="root"/>
-        <property name="password" value="mysql"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>	
+		
     </bean>
  
     <tx:annotation-driven transaction-manager="txManager"/>
