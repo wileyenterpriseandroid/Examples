@@ -40,8 +40,9 @@ The SDK contains the following items:
 --------------------------------------------------
 2. Optionally run the migrate service using Tomcat:
 
+
 NOTE: If you dont plan to use the default migrate backend instance
-located at beta.wroxenterpriseandroid.net, then you
+located at http://project-migrate-beta.appspot.com/, then you
 will need to run your own migrate instance as listed below.
 
 The binary SDK is configured to use this endpoint by default.
@@ -49,8 +50,8 @@ If you want to use your own endpoint, you will need to configure
 if when you add the migrate sync adapter in Android settings.
 
 NOTE: You can create an account when you configure the migrate
-sync adapter, or you can create one (and log on) at:
-beta.wroxenterpriseandroid.net
+sync adapter, or you can create one by registering at:
+http://project-migrate-beta.appspot.com/
 
 If you do not plan to use the default instance, then you can
 skip the rest of step 2.
@@ -75,12 +76,7 @@ $CATALINA_HOME/bin/startup.sh
 Note: Use .bat on windows.
 
 Verify that the service is running by loading the following URL in a browser:
-http://localhost:8080/migrate
-
-Note: This URL is going to change to the following in a future release
-of the migrate project:
-
-http://localhost:8080/WebData
+http://localhost:8080/
 
 This location should display information about Migrate.
 
@@ -266,5 +262,3 @@ $ android update project --path .
 There is also a build.xml file in ./tools which should be identical
 to the one produced by the command above, except that it contains
 the "eclipse" target, which sets this project up for eclipse.
-
-
