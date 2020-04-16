@@ -101,7 +101,7 @@ public class PickFragment extends ListFragment implements
 			Log.i(CLASSNAME, "onStart");
 	}
 
-	public void onresume() {
+	public void onResume() {
 		super.onResume();
 		if (L)
 			Log.i(CLASSNAME, "onResume");
